@@ -32,14 +32,12 @@ Leotheras:AddBarOption("Inner Demons")
 function Leotheras:OnCombatStart(delay)
 	self.Phase = "normal";
 	demonTargets = {};
-
 	self:StartStatusBarTimer(600 - delay, "Enrage", "Interface\\Icons\\Spell_Shadow_UnholyFrenzy");
 	self:ScheduleSelf(300 - delay, "EnrageWarn", 300);
 	self:ScheduleSelf(480 - delay, "EnrageWarn", 120);
 	self:ScheduleSelf(540 - delay, "EnrageWarn", 60);
 	self:ScheduleSelf(570 - delay, "EnrageWarn", 30);
 	self:ScheduleSelf(590 - delay, "EnrageWarn", 10);
-
 	self:ScheduleSelf(55, "PhaseWarn");
 	self:StartStatusBarTimer(60, "Demon Form", "Interface\\Icons\\Spell_Shadow_Metamorphosis");
 	self:StartStatusBarTimer(15, "Next Whirlwind", "Interface\\Icons\\Ability_Whirlwind");
@@ -50,7 +48,6 @@ function Leotheras:OnEvent(event, arg1)
 	if event == "CHAT_MSG_MONSTER_YELL" then
 		if string.find(arg1, DBM_LEO_YELL_DEMON) then
 			self.Phase = "demon";
-
 			self:Announce(DBM_LEO_WARN_DEMON_PHASE, 3);
 			self:ScheduleSelf(55, "PhaseWarn");
 			self:ScheduleSelf(60, "NormalForm");
@@ -60,8 +57,8 @@ function Leotheras:OnEvent(event, arg1)
 			self:EndStatusBarTimer("Whirlwind");
 			self:EndStatusBarTimer("Next Whirlwind");
 			self:StartStatusBarTimer(60, "Normal Form", "Interface\\Icons\\INV_Weapon_ShortBlade_07");
-			self:StartStatusBarTimer(15, "Inner Demons in", "Interface\\Icons\\Spell_Shadow_ManaFeed");
-			self:ScheduleSelf(10, "DemonsSoon");
+			self:StartStatusBarTimer(14, "Inner Demons in", "Interface\\Icons\\Spell_Shadow_ManaFeed");
+			-- self:ScheduleSelf(10, "DemonsSoon"); Since there is no other reference to "DemonsSoon" this prob does nothing atm, commenting out
 
 		elseif arg1 == DBM_LEO_YELL_SHADOW then
 			self.Phase = "normal";
@@ -71,8 +68,8 @@ function Leotheras:OnEvent(event, arg1)
 			self:EndStatusBarTimer("Normal Form");
 			self:EndStatusBarTimer("Demon Form");
 
-			-- commenting out for now; doesn't seem necessary given whirlwind timers continue
-			-- after leo splits
+			-- this logic seems to assume the whirlwind timers reset when leo splits
+			-- dont think that is the case on gummys; commenting out
 			-- self:StartStatusBarTimer(22.5, "Next Whirlwind", "Interface\\Icons\\Ability_Whirlwind");
 			-- self:ScheduleSelf(18, "WhirlWarn2");
 
@@ -89,17 +86,12 @@ function Leotheras:OnEvent(event, arg1)
 
 	elseif event == "NormalForm" then
 		self.Phase = "normal";
-
 		self:Announce(DBM_LEO_WARN_NORMAL_PHASE, 3);
-
 		self:ScheduleSelf(55, "PhaseWarn");
 		self:EndStatusBarTimer("Normal Form");
 		self:EndStatusBarTimer("Demon Form");
-
 		self:StartStatusBarTimer(60, "Demon Form", "Interface\\Icons\\Spell_Shadow_Metamorphosis");
-
 		self:StartStatusBarTimer(15, "Next Whirlwind", "Interface\\Icons\\Ability_Whirlwind");
-
 		self:ScheduleSelf(10, "WhirlWarn");
 
 	elseif event == "PhaseWarn" then
@@ -136,7 +128,6 @@ function Leotheras:OnEvent(event, arg1)
 		else
 			self:Announce(string.format(DBM_LEO_WARN_ENRAGE, arg1, DBM_SEC), 3);
 		end
-
 	elseif event == "WhirlWarn" then
 		if self.Options.WhirlWarn then
 			self:Announce(DBM_LEO_WARN_WHIRL_SOON, 2);
