@@ -91,8 +91,8 @@ function Leotheras:OnEvent(event, arg1)
 		self:EndStatusBarTimer("Normal Form");
 		self:EndStatusBarTimer("Demon Form");
 		self:StartStatusBarTimer(60, "Demon Form", "Interface\\Icons\\Spell_Shadow_Metamorphosis");
-		self:StartStatusBarTimer(15, "Next Whirlwind", "Interface\\Icons\\Ability_Whirlwind");
-		self:ScheduleSelf(10, "WhirlWarn");
+		self:StartStatusBarTimer(14, "Next Whirlwind", "Interface\\Icons\\Ability_Whirlwind");
+		self:ScheduleSelf(9, "WhirlWarn");
 
 	elseif event == "PhaseWarn" then
 		if self.Phase == "normal" then
