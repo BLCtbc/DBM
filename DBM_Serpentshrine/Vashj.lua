@@ -2,7 +2,7 @@
 
 Vashj.Version			= "1.1";
 Vashj.Author			= "Tandanu";
-Vashj.MinRevision		= 760;
+Vashj.MinRevision		= 761;
 
 local shieldsDown = 0;
 local phase = 1;
@@ -37,6 +37,8 @@ Vashj:AddOption("WarnSpawns", true, DBM_VASHJ_OPTION_SPAWNS);
 Vashj:AddOption("WarnLoot", true, DBM_VASHJ_OPTION_COREWARN);
 Vashj:AddOption("IconLoot", true, DBM_VASHJ_OPTION_COREICON);
 Vashj:AddOption("SpecWarnLoot", true, DBM_VASHJ_OPTION_CORESPECWARN);
+Vashj:AddOption("WarnMC", true, DBM_VASHJ_OPTION_MINDCONTROL);
+
 
 Vashj:AddBarOption("Static Charge: (.*)")
 Vashj:AddBarOption("Strider")
@@ -84,6 +86,8 @@ function Vashj:OnEvent(event, arg1)
 	if event == "SPELL_AURA_APPLIED" then
 		if arg1.spellId == 38132 then
 			self:SendSync("Loot"..tostring(arg1.destName))
+		elseif arg1.spellId == 38511 then
+			self:SendSync("MindC"..tostring(arg1.destName))
 		end
 	elseif event == "SPELL_CAST_SUCCESS" then
 		if arg1.spellId == 38280 then
@@ -237,6 +241,12 @@ function Vashj:OnSync(msg)
 		end
 		if target == UnitName("player") and self.Options.SpecWarnLoot then
 			self:AddSpecialWarning(DBM_VASHJ_SPECWARN_CORE);
+		end
+	elseif string.sub(msg, 0, 5) == "MindC" then
+		local target = string.sub(msg, 6);
+		if self.Options.WarnMC then
+			self:Announce(string.format(DBM_VASHJ_WARN_MINDCONTROL, target), 1);
+			self:StartStatusBarTimer(20, "Mind Control: "..target, "Interface\\Icons\\Spell_Shadow_Charm");
 		end
 	end
 end
