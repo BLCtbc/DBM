@@ -164,6 +164,4 @@ DBM_VASHJ_WARN_ENRAGE				= "*** Enrage in %s %s ***";
 
 DBM_VASHJ_WARN_MINDCONTROL			= "*** >%s< is mind controlled! ***";
 DBM_VASHJ_OPTION_MINDCONTROL		= "Announce mind control targets";
-
-
-
+DBM_VASHJ_OPTION_ROOTS				= "Timer bars for roots";

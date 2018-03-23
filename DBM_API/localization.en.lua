@@ -329,10 +329,6 @@ DBM_GENERIC_ENRAGE_WARN	= "Enrage in %s %s"
 -- 6.10.07
 DBM_GENERIC_PHASE_MSG		= "Phase %s"
 DBM_GENERIC_PHASE_MSG2		= "%s phase"
-
 DBM_HP_UNKNOWN				= "HP unknown"
-
 DBMGUI_OPTIONS_BAR_TARGET	= "<target>"
-
-
 DBM_NO_TARGET				= "<no target>"
