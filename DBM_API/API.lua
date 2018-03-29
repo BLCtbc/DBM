@@ -28,7 +28,7 @@
 --  fixed a compatibility issue with WIM
 --  fixed UnitNamePlayer bug (really!)
 --  added spanish battleground translations (by Herenvarno@C'thun, thank you!)
---  
+--
 --  v3.11
 --  fixed some patch 2.4.x issues
 --  Naxxramas: updated for 2.4
@@ -125,7 +125,7 @@
 --    Romulo/Julianne: Poisened Thrust announce (thx 2 Nightkiller(kc10577;Azael))
 --    Lady Vashj: added whisper
 --    Solorian: added whisper
---    
+--
 --
 --  New boss mods:
 --    Hyjal Wave Timers: Shows timers and announces trash mob waves in Mount Hyjal
@@ -137,7 +137,7 @@
 --                      Vanish: announce, timer
 --                      Shields: announce, timer
 --                      Resistance/Devotion Aura: announce, timer
---						
+--
 --    Illidan: Phases: announce
 --             Shear: announce, timer
 --             Shadowfiend: announce, timer, icon
@@ -171,7 +171,7 @@
 --  updated the Serpentshrine zone localizations
 --  added zhTW localization for Karazhan (thanks to Dean, kc10577 and jrkid)
 --  updated esES localization (thanks to Geran from Dun Modr)
---  updated deDE localization (thanks to Xerôn)
+--  updated deDE localization (thanks to Xerï¿½n)
 --  /dbm stop will no longer remove custom timers
 --  the Void Reaver boss mod will now detect Arcane Orb on dps warriors
 --  the Maiden of Virtue mod will now use her yell to detect repentance
@@ -180,7 +180,7 @@
 --  added Lady Vashj boss mod
 --  added Al'ar boss mod
 --  added Kael'thas boss mod
---  
+--
 --
 --  v2.60
 --  fixed Lurker Below boss mod
@@ -286,7 +286,7 @@
 --  fixed some bugs in some boss mods
 --  fixed a bug that could cause strange errors
 --  fixed the Nefarian kill counter
---  
+--
 --  removed Alliance:/Horde: prefix from BG bars, because its useless since the bars are red/blue
 --  updated C'Thun mod (thanks to Tsew@EU-Kirin-Tor)
 --  removed C'Thun Dark Glare target announce because it's very unreliable since patch 2.0
@@ -323,11 +323,11 @@ DBM_SavedVars = {
 
 DBM = {}
 
-DBM.Version = "3.22" -- used for "a new version of dbm is available"-spam
+DBM.Version = "3.23" -- used for "a new version of dbm is available"-spam
 DBMGUI_VERSION = "3.02"
 
 DBM_REVISION = tonumber(("$Revision: 296 $"):sub(12, -3) or 0) + 783 -- 783 = revision number from the old SVN repository
-DBM_VERSION = "3.22" -- this version is used for /dbm ver commands
+DBM_VERSION = "3.23" -- this version is used for /dbm ver commands
 DBM.BetaVersion = DBM_VERSION.." (rev "..DBM_REVISION..")" -- this will be shown in the GUI if set
 
 
@@ -363,7 +363,7 @@ DBM.SyncInfo = {
 
 DBM.LongMsg = "";
 
-DBM.AddOns = {	
+DBM.AddOns = {
 };
 
 DBM.MsgQueue = {
@@ -511,7 +511,7 @@ DBM.Options = {
 		["PizzaTimerMin"] 		= 15,
 		["PizzaTimerSec"] 		= 0,
 		["PizzaTimerBroadcast"]		= true,
-		
+
 		["RaidWarning_Enable"]		= true,
 		["RaidWarning_R"] 		= 1.000000,
 		["RaidWarning_G"] 		= 0.858823,
@@ -547,8 +547,8 @@ DBM.Options = {
 		{r = 0.41, g = 0.80, b = 0.94}, -- unimportant information
 		{r = 0.95, g = 0.95, b = 0.00}, -- important information
 		{r = 1.00, g = 0.50, b = 0.00}, -- more important warnings
-		{r = 1.00, g = 0.10, b = 0.10}, -- even more important warnings 
-		{r = 0.05, g = 0.20, b = 1.00}, -- wtf! (unused)		
+		{r = 1.00, g = 0.10, b = 0.10}, -- even more important warnings
+		{r = 0.05, g = 0.20, b = 1.00}, -- wtf! (unused)
 	},
 	["HugeBars"] = {
 		["ShowIcon"] = true,
@@ -721,7 +721,7 @@ function DBM.OnLoad()
 				name = string.sub(msg, math.max((stringEndh or 0), (stringEndm or 0), (stringEnds or 0)) + 1);
 				timer = 3600 * (tonumber(h) or 0) + 60 * (tonumber(m) or 0) + (tonumber(s) or 0);
 			end
-			if timer and name then				
+			if timer and name then
 				if DBM.Rank >= 1 then
 					DBM.StartStatusBarTimer(timer, name:gsub("%%t", UnitName("target") or DBM_NO_TARGET));
 				else
@@ -735,7 +735,7 @@ function DBM.OnLoad()
 			if DBM.Rank >= 1 then
 				local _, _, timer = string.find(msg, "%w+ (%d+)");
 				if tonumber(timer) then
-					DBM.Announce_Pull(tonumber(timer)); 
+					DBM.Announce_Pull(tonumber(timer));
 				else
 					DBM.AddMsg(DRT_PULLCOMMAND_FAILED);
 				end
@@ -747,7 +747,7 @@ function DBM.OnLoad()
 		elseif string.sub(msg, 0, 9) == "spamblock" then
 			local _, _, xArg1, xArg2 = string.find(msg, "%w+ (%w+) (%w+)");
 			xArg1, xArg2 = string.lower(tostring(xArg1)), string.lower(tostring(xArg2));
-			
+
 			if (xArg2 ~= "on" and xArg2 ~= "off") or (xArg1 ~= "raid" and xArg1 ~= "raidwarning" and xArg1 ~= "raidwarningframe" and xArg1 ~= "ctraid" and xArg1 ~= "battleground") then
 				if DBM.Options.SpamBlock.RaidChat then
 					DBM.AddMsg(string.format(DRT_SPAMBLOCK_SLASHHELP[1], DBM_ENABLED_GREEN));
@@ -822,11 +822,11 @@ function DBM.OnLoad()
 			DBMMinimapButton:GetScript("OnClick")();
 		end
 	end
-	
+
 	if select(4, GetAddOnInfo("DBM_Other")) == 1 then
 		DisableAddOn("DBM_Other")
 	end
-	
+
 
 	SLASH_LVRANGECHECK1 = "/range";
 	SLASH_LVRANGECHECK2 = "/rangecheck";
@@ -838,7 +838,7 @@ function DBM.OnLoad()
 
 	SLASH_DRT_PULL1 = "/pull";
 	SlashCmdList["DRT_PULL"] = function(msg) DBM.Announce_Pull(msg); end;
-	
+
 	DBM_API:RegisterEvent("VARIABLES_LOADED");
 	DBM_API:RegisterEvent("PLAYER_ENTERING_WORLD");
 	DBM_API:RegisterEvent("PLAYER_LEAVING_WORLD");
@@ -855,11 +855,11 @@ function DBM.OnLoad()
 	DBM_API:RegisterEvent("CHAT_MSG_MONSTER_SAY");
 	DBM_API:RegisterEvent("PARTY_MEMBERS_CHANGED");
 	DBM_API:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	
+
 	if (tonumber(UnitLevel("player")) or 0) > 60 then
 		DBM.Options.Level70Gui = true
 	end
-	
+
 	for i = 1, GetNumAddOns() do
 		if GetAddOnMetadata(i, "X-DBM-AddOn") then
 			table.insert(DBM.BossModInfo, {
@@ -909,11 +909,11 @@ function DBM.RangeCheck()
 		name = GetRaidRosterInfo(i)
 		if name and (not CheckInteractDistance("raid"..i, 4)) then
 			playersOutOfRange = playersOutOfRange..UnitName("raid"..i)..", ";
-		end						
+		end
 	end
 	DBM.AddMsg(DBM_RANGE_CHECK..string.sub(playersOutOfRange, 1, (string.len(playersOutOfRange) - 2)));
 end
-	
+
 function DBM.CleanUp()
 	if DBM.Rank >= 1 then
 		for i = 1, GetNumRaidMembers() do
@@ -928,7 +928,7 @@ function DBM.LoadAddOns()
 		DBM.SortedAddOns[i] = nil
 	end
 
-	for index, value in pairs(DBM.AddOns) do	--load AddOn's saved variables/add new addons to the DBM_SavedVars table/set default values for missing fields		
+	for index, value in pairs(DBM.AddOns) do	--load AddOn's saved variables/add new addons to the DBM_SavedVars table/set default values for missing fields
 		if not value.Initialized then
 			if not value.Name then
 				DBM.AddOns[index].Name = index;
@@ -959,7 +959,7 @@ function DBM.LoadAddOns()
 					["Enabled"] = true,
 					["Announce"] = false,
 				}
-			end		
+			end
 			if value.Options.Enabled == nil then --not value.Options.Enabled would return true if the AddOn is disabled....and the next line would enable the addon
 				DBM.AddOns[index].Options.Enabled = true;
 			end
@@ -981,23 +981,23 @@ function DBM.LoadAddOns()
 			if not value.elapsed then
 				DBM.AddOns[index].elapsed = 0;
 			end
-			
+
 			if not value.Events then
 				value.Events = {};
-			end			
-			
+			end
+
 			if DBM_SavedVars.AddOns[index] == nil then --load saved vars
 				DBM_SavedVars.AddOns[index] = value.Options
 			else
-				for index2, value2 in pairs(value.Options) do				
-					if DBM_SavedVars.AddOns[index][index2] == nil then					
+				for index2, value2 in pairs(value.Options) do
+					if DBM_SavedVars.AddOns[index][index2] == nil then
 						DBM_SavedVars.AddOns[index][index2] = value2;
 					else
 						DBM.AddOns[index].Options[index2] = DBM_SavedVars.AddOns[index][index2];
 					end
 				end
 			end
-					
+
 			setglobal("SLASH_"..index.."1", "/"..string.gsub(value.Name, " ", "")); --register slash commands
 			for i = 1, 10 do
 				if value["Abbreviation"..i] then
@@ -1008,99 +1008,99 @@ function DBM.LoadAddOns()
 			end
 
 			SlashCmdList[index] = function(msg)  -- thx 2 nymbia
-				local abbrString = ''   
-				if string.lower(msg) == 'on' then   
-					DBM.AddOns[index].Options.Enabled = true   
-					DBM.AddMsg(DBM_MOD_ENABLED, value.Name)   
-				elseif string.lower(msg) == 'off' then   
-					DBM.AddOns[index].Options.Enabled = false   
-					DBM.UnSchedule('DBM.AddOns.'..index..'.OnEvent')   
-					DBM.UnSchedule('DBM.AddOns.'..index..':OnEvent')   
+				local abbrString = ''
+				if string.lower(msg) == 'on' then
+					DBM.AddOns[index].Options.Enabled = true
+					DBM.AddMsg(DBM_MOD_ENABLED, value.Name)
+				elseif string.lower(msg) == 'off' then
+					DBM.AddOns[index].Options.Enabled = false
+					DBM.UnSchedule('DBM.AddOns.'..index..'.OnEvent')
+					DBM.UnSchedule('DBM.AddOns.'..index..':OnEvent')
 					DBM.UnSchedule('DBM.AddOns["'..index..'"]:OnEvent')
 					if DBM.AddOns[index].APIVersion and DBM.AddOns[index].APIVersion >= 2.11 then
 						DBM.AddOns[index]:RemoveAllIcons()
 						DBM.AddOns[index]:UnScheduleAll()
 					end
-					DBM.AddMsg(DBM_MOD_DISABLED, value.Name)   
-				elseif string.lower(msg) == 'announce on' then   
-					DBM.AddOns[index].Options.Announce = true   
-					DBM.AddMsg(DBM_ANNOUNCE_ENABLED, value.Name)   
-				elseif string.lower(msg) == 'announce off' then   
-					DBM.AddOns[index].Options.Announce = false   
-					DBM.AddMsg(DBM_ANNOUNCE_DISABLED, value.Name)   
-				elseif string.lower(msg) == 'stop' then   
-					if type(DBM.AddOns[index].OnStop) == 'function' then   
-						if DBM.AddOns[index].APIVersion and DBM.AddOns[index].APIVersion >= 2.11 then   
-							DBM.AddOns[index]:OnStop()   
+					DBM.AddMsg(DBM_MOD_DISABLED, value.Name)
+				elseif string.lower(msg) == 'announce on' then
+					DBM.AddOns[index].Options.Announce = true
+					DBM.AddMsg(DBM_ANNOUNCE_ENABLED, value.Name)
+				elseif string.lower(msg) == 'announce off' then
+					DBM.AddOns[index].Options.Announce = false
+					DBM.AddMsg(DBM_ANNOUNCE_DISABLED, value.Name)
+				elseif string.lower(msg) == 'stop' then
+					if type(DBM.AddOns[index].OnStop) == 'function' then
+						if DBM.AddOns[index].APIVersion and DBM.AddOns[index].APIVersion >= 2.11 then
+							DBM.AddOns[index]:OnStop()
 						else
-							DBM.AddOns[index].OnStop()   
+							DBM.AddOns[index].OnStop()
 						end
 					end
-					DBM.UnSchedule('DBM.AddOns.'..index..'.OnEvent')   
-					DBM.UnSchedule('DBM.AddOns.'..index..':OnEvent')   
+					DBM.UnSchedule('DBM.AddOns.'..index..'.OnEvent')
+					DBM.UnSchedule('DBM.AddOns.'..index..':OnEvent')
 					DBM.UnSchedule('DBM.AddOns["'..index..'"]:OnEvent')
 					if DBM.AddOns[index].APIVersion and DBM.AddOns[index].APIVersion >= 2.11 then
 						DBM.AddOns[index]:RemoveAllIcons()
 						DBM.AddOns[index]:UnScheduleAll()
-					end			
-					for index2, value2 in pairs(DBM.StatusBarData) do   
-						if index2 then   
-							if DBM.AddOns[index].Name == value2.startedBy then   
-								DBM.EndRepeatingStatusBarTimer(index2, true)   
-							end 
+					end
+					for index2, value2 in pairs(DBM.StatusBarData) do
+						if index2 then
+							if DBM.AddOns[index].Name == value2.startedBy then
+								DBM.EndRepeatingStatusBarTimer(index2, true)
+							end
 						end
 					end
-					DBM.AddMsg(DBM_MOD_STOPPED, value.Name)   
-				else   
-					if type(DBM.AddOns[index].OnSlashCommand) == 'function' then   
-						if DBM.AddOns[index].APIVersion and DBM.AddOns[index].APIVersion >= 2.11 then   
-							if DBM.AddOns[index]:OnSlashCommand(msg) then   
+					DBM.AddMsg(DBM_MOD_STOPPED, value.Name)
+				else
+					if type(DBM.AddOns[index].OnSlashCommand) == 'function' then
+						if DBM.AddOns[index].APIVersion and DBM.AddOns[index].APIVersion >= 2.11 then
+							if DBM.AddOns[index]:OnSlashCommand(msg) then
 								return
-							end   
+							end
 						else
-							if DBM.AddOns[index].OnSlashCommand(msg) then   
-								return   
+							if DBM.AddOns[index].OnSlashCommand(msg) then
+								return
 							end
 						end
-					end   
-					DBM.AddMsg(string.format(DBM_MOD_INFO, DBM.AddOns[index].Version, DBM.AddOns[index].Author), value.Name)   
-					DBM.AddMsg('/'..string.gsub(DBM.AddOns[index].Name, ' ', '')..DBM_SLASH_HELP1, value.Name)   
-					DBM.AddMsg('/'..string.gsub(DBM.AddOns[index].Name, ' ', '')..DBM_SLASH_HELP2, value.Name)   
-					DBM.AddMsg('/'..string.gsub(DBM.AddOns[index].Name, ' ', '')..DBM_SLASH_HELP3, value.Name)   
-					if type(DBM.AddOns[index].SlashCmdHelpText) == 'table' then   
-						for k,v in pairs(DBM.AddOns[index].SlashCmdHelpText) do   
-							if type(v) == 'string' then   
-								DBM.AddMsg(v, value.Name)   
-							end
-						end   
 					end
-					if type(DBM.AddOns[index].Abbreviation1) == 'string' then   
-						abbrString = '/'..DBM.AddOns[index].Abbreviation1   
-					end   
-					if type(DBM.AddOns[index].Abbreviation2) == 'string' and (not type(DBM.AddOns[index].Abbreviation3) == 'string') then   
-						abbrString = abbrString..' '..DBM_OR..' /'..DBM.AddOns[index].Abbreviation2   
-					elseif type(DBM.AddOns[index].Abbreviation3) == 'string' then   
+					DBM.AddMsg(string.format(DBM_MOD_INFO, DBM.AddOns[index].Version, DBM.AddOns[index].Author), value.Name)
+					DBM.AddMsg('/'..string.gsub(DBM.AddOns[index].Name, ' ', '')..DBM_SLASH_HELP1, value.Name)
+					DBM.AddMsg('/'..string.gsub(DBM.AddOns[index].Name, ' ', '')..DBM_SLASH_HELP2, value.Name)
+					DBM.AddMsg('/'..string.gsub(DBM.AddOns[index].Name, ' ', '')..DBM_SLASH_HELP3, value.Name)
+					if type(DBM.AddOns[index].SlashCmdHelpText) == 'table' then
+						for k,v in pairs(DBM.AddOns[index].SlashCmdHelpText) do
+							if type(v) == 'string' then
+								DBM.AddMsg(v, value.Name)
+							end
+						end
+					end
+					if type(DBM.AddOns[index].Abbreviation1) == 'string' then
+						abbrString = '/'..DBM.AddOns[index].Abbreviation1
+					end
+					if type(DBM.AddOns[index].Abbreviation2) == 'string' and (not type(DBM.AddOns[index].Abbreviation3) == 'string') then
+						abbrString = abbrString..' '..DBM_OR..' /'..DBM.AddOns[index].Abbreviation2
+					elseif type(DBM.AddOns[index].Abbreviation3) == 'string' then
 						abbrString = abbrString..', /'..DBM.AddOns[index].Abbreviation2..' '..DBM_OR..' /'..DBM.AddOns[index].Abbreviation3
 					end
 
-					if abbrString ~= '' then 
+					if abbrString ~= '' then
 						DBM.AddMsg(string.format(DBM_SLASH_HELP4, abbrString, string.gsub(DBM.AddOns[index].Name, ' ', '')), value.Name)
 					end
 				end
 			end
 
-			
-			
+
+
 			if value.APIVersion and value.APIVersion >= 2.11 then
 				DBM.AddOns[index]:OnLoad();
 			else
 				DBM.AddOns[index].OnLoad();
 			end
-			
+
 			value.Initialized = true;
 		end
-		
-		table.insert(DBM.SortedAddOns, index);		
+
+		table.insert(DBM.SortedAddOns, index);
 	end
 
 	table.sort(DBM.SortedAddOns, function(v1, v2) return DBM.AddOns[v1].Sort < DBM.AddOns[v2].Sort; end);
@@ -1110,9 +1110,9 @@ end
 
 function DBM.OnVarsLoaded()
 	DBM.Register();
-	
+
 --	DBM.AddMsg(string.format(DBM_LOADED, DBM.BetaVersion or DBM.Version));
-	
+
 	for index, value in pairs(DBM.Options) do --load saved vars
 		if DBM_SavedVars.DBM[index] == nil then
 			DBM_SavedVars.DBM[index] = value;
@@ -1126,11 +1126,11 @@ function DBM.OnVarsLoaded()
 							DBM_SavedVars.DBM[index][index2][index3] = value;
 						else
 							DBM.Options[index][index2][index3] = DBM_SavedVars.DBM[index][index2][index3];
-						end				
+						end
 					end
 				else
 					DBM.Options[index][index2] = DBM_SavedVars.DBM[index][index2];
-				end				
+				end
 			end
 		elseif index == "CharSettings" then
 			for index2, value2 in pairs(DBM.Options[index]) do
@@ -1150,16 +1150,16 @@ function DBM.OnVarsLoaded()
 		else
 			DBM.Options[index] = DBM_SavedVars.DBM[index];
 		end
-	end	
-	
-	
+	end
+
+
 	if DBM.Options.FirstTimeLoaded879 then
 		DBM.Options.FirstTimeLoaded879 = false
 		if DBM.Options.MaxStatusBars == 10 then
 			DBM.Options.MaxStatusBars = 15
 		end
 	end
-	
+
 	local firstTimeLoadedMovableBars = false
 	if DBM.Options.FirstTime679Loaded then
 		firstTimeLoadedMovableBars = true
@@ -1233,13 +1233,13 @@ function DBM.OnVarsLoaded()
 	end
 	if DBM.Options.FirstTimeLoaded770 then
 		DBM.Schedule(15, ChangeChatColor, "RAID_WARNING", 1, 0.858823, 0.717647)
-		
+
 		DBM.Options["RaidWarningColors"] = {
 			{r = 0.41, g = 0.80, b = 0.94}, -- unimportant information
 			{r = 0.95, g = 0.95, b = 0.00}, -- important information
 			{r = 1.00, g = 0.50, b = 0.00}, -- more important warnings
-			{r = 1.00, g = 0.10, b = 0.10}, -- even more important warnings 
-			{r = 0.05, g = 0.20, b = 1.00}, -- wtf! (unused)		
+			{r = 1.00, g = 0.10, b = 0.10}, -- even more important warnings
+			{r = 0.05, g = 0.20, b = 1.00}, -- wtf! (unused)
 		}
 
 		DBM.Options.FirstTimeLoaded770 = false
@@ -1257,25 +1257,25 @@ function DBM.OnVarsLoaded()
 		StaticPopup_Show("FirstTimeLoaded790")
 		DBM.Options.FirstTimeLoaded790 = false
 	end
-	
+
 	DBMSpecialWarningFrameText:SetFont(STANDARD_TEXT_FONT, DBM.Options.SpecialWarningTextSize, "THICKOUTLINE");
 	DBMStatusBars_ChangeDesign(DBM.Options.StatusBarDesign, true);
 	DBMHugeStatusBars_ChangeDesign(DBM.Options.HugeBars.StatusBarDesign, true);
-	
-	DBMMinimapButton_Move();	
+
+	DBMMinimapButton_Move();
 
 	if not DBM.Options.MinimapButton.Enabled then
 		DBMMinimapButton:Hide();
 	else
 		DBMMinimapButton:Show();
 	end
-	
+
 	if DBM.Options.LoadGUIOnLoad then
 		if LoadAddOn("DBM_GUI") then
 			DBMBossModFrame_OnEvent("PLAYER_LOGIN");
 		end
 	end
-	
+
 	if GetNumRaidMembers() > 1 then
 		DBM.AddSyncMessage("HI!", true);
 		DBM.InRaid = true;
@@ -1291,7 +1291,7 @@ function DBM.OnVarsLoaded()
 		end
 	elseif GetNumPartyMembers() > 0 then
 		SendAddonMessage("LVBM NSP", "HI!", "PARTY")
-		for i = 1, GetNumPartyMembers() do			
+		for i = 1, GetNumPartyMembers() do
 			local name = UnitName("party"..i)
 			local _, class = UnitClass("party"..i)
 			DBM.RaidClasses[name] = class
@@ -1301,9 +1301,9 @@ function DBM.OnVarsLoaded()
 		DBM.RaidClasses[UnitName("player")] = class
 		DBM.Raid[UnitName("player")] = 1
 	end
-	
+
 	DBM.LoadAddOns();
-	
+
 	if type(ForgottenChat_Blacklist) == "table" then
 		local foundLVBM, foundLVPN;
 		for index, value in pairs(ForgottenChat_Blacklist) do
@@ -1320,11 +1320,11 @@ function DBM.OnVarsLoaded()
 			table.insert(ForgottenChat_Blacklist, "LVPN");
 		end
 	end
-	if type(WIM_Filters) == "table" then	
+	if type(WIM_Filters) == "table" then
 		WIM_Filters["^LVBM"] = WIM_Filters["^LVBM"] or "Ignore";
 		WIM_Filters["^LVPN"] = WIM_Filters["^LVPN"] or "Ignore";
 	end
-		
+
 	--FIX ME
 	SLASH_LVDISTANCE1 = "/distance";	-- EN
 	if GetLocale() == "deDE" then -- should be moved to the localization file
@@ -1349,11 +1349,11 @@ function DBM.OnVarsLoaded()
 --			namesWereHidden = true
 --		end
 	end
-	
+
 	if IsAddOnLoaded("LVBM_API") then
 		StaticPopup_Show("OLD_VERSION_DETECTED");
 	end
-	
+
 	DBM.VarsNotLoaded = nil;
 end
 
@@ -1372,7 +1372,7 @@ function DBM.OnEvent(event, ...)
 				v.Options.Announce = false
 			end
 		end
-		
+
 		DBM.OnNewZone();
 	elseif (event == "PLAYER_LEAVING_WORLD") then -- PLAYER_LOGOUT seems to be fired after saving of variables in same cases (?)
 		DBM_SavedVars.DBM = DBM.Options; -- DBM_SavedVars.DBM ~= DBM.Options, see load code!
@@ -1403,16 +1403,16 @@ function DBM.OnEvent(event, ...)
 				if DBM.AddOns[modID].MinRevision and (not DBM.SyncInfo.DispVers or not DBM.SyncInfo.DispVers[arg4] or not DBM.SyncInfo.DispVers[arg4][2] or (tonumber(DBM.SyncInfo.DispVers[arg4][2]) or 0) < tonumber(DBM.AddOns[modID].MinRevision)) then
 					return;
 				end
-				
+
 				if not modSpamTable[modID] then
 					modSpamTable[modID] = {};
-				end				
+				end
 				modSpamTable[modID][arg2] = 3;
-				
+
 				if DBM.AddOns[modID].Options and DBM.AddOns[modID].Options.Enabled and type(DBM.AddOns[modID].OnSync) == "function" then
 					DBM.AddOns[modID]:OnSync(arg2, arg4);
 				end
-			end		
+			end
 		end
 	elseif (event == "CHAT_MSG_WHISPER") and ((string.sub(arg1, 1, 4) == "LVPN") or (string.sub(arg1, 1, 5) == "LVBM ")) then
 		if arg1:find("\124") then return end
@@ -1463,7 +1463,7 @@ function DBM.OnEvent(event, ...)
 				end
 			end
 		else
-			if DBM.InRaid then				
+			if DBM.InRaid then
 				DBM.InRaid = false;
 				if DBM.Options.Gui.HidePlayerNamesInRaid and namesWereHidden then
 --					SetCVar("UnitNamePlayer", 1);
@@ -1496,7 +1496,7 @@ function DBM.OnEvent(event, ...)
 		if DBM.Bosses[GetRealZoneText()] and not DBM.InCombat then
 			local bossTable = {}; -- fix me // memory leak
 			local bosses = {}; -- fix me // memory leak
-			
+
 			for index, value in pairs(DBM.Bosses[GetRealZoneText()]) do
 				if value.startMethod == "COMBAT" then
 					bossTable[value.name] = {["index"] = index, ["value"] = value};
@@ -1507,9 +1507,9 @@ function DBM.OnEvent(event, ...)
 			if bosses then
 				for index, value in pairs(bosses) do
 					if value then
-						DBM.Schedule((bossTable[index].value.delay or 5), 	function(bossID)							
+						DBM.Schedule((bossTable[index].value.delay or 5), 	function(bossID)
 							if DBM.Bosses[GetRealZoneText()] and DBM.Bosses[GetRealZoneText()][bossID] then
-								if DBM.DetectCombat(DBM.Bosses[GetRealZoneText()][bossID].name) then									
+								if DBM.DetectCombat(DBM.Bosses[GetRealZoneText()][bossID].name) then
 									DBM.CombatStart(bossID, (DBM.Bosses[GetRealZoneText()][bossID].delay or 5));
 								end
 							end
@@ -1560,7 +1560,7 @@ function DBM.OnEvent(event, ...)
 			elseif arg10 == DBM_FEIGNDEATH then
 				DBM.LastFeignDeath = GetTime()
 			end
-		elseif arg2 == "UNIT_DIED" or arg2 == "UNIT_DESTROYED" then 
+		elseif arg2 == "UNIT_DIED" or arg2 == "UNIT_DESTROYED" then
 			local mobName = arg7
 			if mobName and DBM.Bosses[GetRealZoneText()] then
 				for index, value in pairs(DBM.Bosses[GetRealZoneText()]) do
@@ -1581,7 +1581,7 @@ function DBM.OnEvent(event, ...)
 		DBM.OnCombatLogEvent(...)
 	end
 
-	
+
 	for index, value in pairs(DBM.AddOns) do
 		if value.Options.Enabled and value.Events[event] and ((value.Instance == DBM_OTHER) or (value.Instance == GetRealZoneText()) or (GetLocale() == "esES" or GetLocale() == "koKR")) then
 			if value.APIVersion and value.APIVersion >= 2.11 then
@@ -1597,7 +1597,7 @@ function DBM.OnNewZone()
 	if (GetRealZoneText() == DBM_NAXX) then
 		LoadAddOn("DBM_NAXX");
 		DBM.LoadAddOns();
-		
+
 	elseif (GetRealZoneText() == DBM_AQ40) then
 		LoadAddOn("DBM_AQ40");
 		DBM.LoadAddOns();
@@ -1617,7 +1617,7 @@ function DBM.OnNewZone()
 	elseif (GetRealZoneText() == DBM_ZG) then
 		LoadAddOn("DBM_ZG");
 		DBM.LoadAddOns();
-		
+
 	elseif (GetRealZoneText() == DBM_ARATHI)
 	or (GetRealZoneText() == DBM_ALTERAC)
 	or (GetRealZoneText() == DBM_WARSONG)
@@ -1629,10 +1629,10 @@ function DBM.OnNewZone()
 		if DBM.AddOns.Warsong then DBM.AddOns.Warsong:OnEvent("ZONE_CHANGED_NEW_AREA");	end
 		if DBM.AddOns.EyeOfTheStorm then DBM.AddOns.EyeOfTheStorm:OnEvent("ZONE_CHANGED_NEW_AREA"); end
 		DBM.LoadAddOns();
-	
+
 	elseif GetRealZoneText() == DBM_ONYXIAS_LAIR then
 		LoadAddOn("DBM_Azeroth")
-		DBM.LoadAddOns()	
+		DBM.LoadAddOns()
 	elseif GetRealZoneText() == DBM_GRUULS_LAIR
 	or GetRealZoneText() == DBM_MAGS_LAIR then
 		LoadAddOn("DBM_Outlands")
@@ -1694,7 +1694,7 @@ function DBM.OnUpdate(elapsed)
 		if DBM.SpamProtection[index] <= 0 then
 			DBM.SpamProtection[index] = nil;
 		end
-	end	
+	end
 	msgQueueElapsed = msgQueueElapsed + elapsed;
 	if msgQueueElapsed >= 0.1 then
 		msgQueueElapsed = 0;
@@ -1702,15 +1702,15 @@ function DBM.OnUpdate(elapsed)
 			local oldValue = GetCVar("autoClearAFK");
 			SendChatMessage(DBM.MsgQueue[1].msg, "WHISPER", nil, DBM.MsgQueue[1].target);
 			SetCVar("autoClearAFK", oldValue);
-			table.remove(DBM.MsgQueue, 1)			
+			table.remove(DBM.MsgQueue, 1)
 		end
-	end	
-	for index, value in pairs(DBM.AddOns) do 
+	end
+	for index, value in pairs(DBM.AddOns) do
 		--execute the OnUpdate functions of the addons
 
 		if value.Options.Enabled and type(value.OnUpdate) == "function" then
-			if value.Instance == GetRealZoneText() 
-			or value.Instance == DBM_OTHER 
+			if value.Instance == GetRealZoneText()
+			or value.Instance == DBM_OTHER
 			or (GetLocale() == "esES" or GetLocale() == "koKR") then --unsupported languages :<
 
 				DBM.AddOns[index].elapsed = DBM.AddOns[index].elapsed + elapsed;
@@ -1769,7 +1769,7 @@ function DBM.OnUpdate(elapsed)
 		end
 		hugeBarCounter = hugeBarCounter + 1
 	end
-	
+
 	DBM.AggroUpdate = DBM.AggroUpdate + elapsed;
 	if DBM.AggroUpdate > 1 and DBM.Options.CharSettings[UnitName("player")].AggroAlert then
 		local isInInstance, instanceType = IsInInstance();
@@ -1826,12 +1826,12 @@ function DBM.OnUpdate(elapsed)
 				end
 			end
 		end
-		
+
 		if (GetRealZoneText() == DBM_ASHENVALE)
 		or (GetRealZoneText() == DBM_FERALAS)
 		or (GetRealZoneText() == DBM_DUSKWOOD)
 		or (GetRealZoneText() == DBM_HINTERLANDS)
-		or (GetRealZoneText() == DBM_AZSHARA) then		
+		or (GetRealZoneText() == DBM_AZSHARA) then
 			if DBM.UnitExists(DBM_AZUREGOS_NAME)
 			or DBM.UnitExists(DBM_OUTDOOR_YSONDRE)
 			or DBM.UnitExists(DBM_OUTDOOR_EMERISS)
@@ -1841,7 +1841,7 @@ function DBM.OnUpdate(elapsed)
 				DBM.LoadAddOns();
 			end
 		end
-		
+
 		if (GetRealZoneText() == DBM_SHADOWMOON)
 		or (GetRealZoneText() == DBM_HELLFIRE) then
 			if DBM.UnitExists(DBM_DOOMW_NAME)
@@ -1876,7 +1876,7 @@ function DBM.OnUpdate(elapsed)
 			end
 		end
 	end
-	
+
 	for index, value in pairs(modSpamTable) do
 		if type(value) == "table" then
 			for index2, value2 in pairs(value) do
@@ -1888,7 +1888,7 @@ function DBM.OnUpdate(elapsed)
 			end
 		end
 	end
-	
+
 	if not DBM.AddOns.Battlegrounds and MAX_BATTLEFIELD_QUEUES and PVP_TEAMSIZE then
 		for i = 1, MAX_BATTLEFIELD_QUEUES do
 			local status = GetBattlefieldStatus(i);
@@ -1913,7 +1913,7 @@ function DBM.Schedule(timer, func, ...)
 	if (type(timer) ~= "number") or (not func) then
 		return
 	end
-	
+
 	table.insert(DBM.ScheduleData, {
 		["elapsed"] = 0,
 		["timer"] = timer,
@@ -1927,7 +1927,7 @@ function DBM.UnSchedule(func, ...)
 	if not func then
 		return
 	end
-	
+
 	for i = #DBM.ScheduleData, 1, -1 do
 		local v = DBM.ScheduleData[i]
 		if v.func == func then
@@ -1941,7 +1941,7 @@ function DBM.UnSchedule(func, ...)
 				table.remove(DBM.ScheduleData, i)
 			end
 		end
-	end	
+	end
 end
 
 
@@ -1949,7 +1949,7 @@ function DBM.GetScheduleTimeLeft(func, ...)
 	if not func then
 		return
 	end
-	
+
 	for i = #DBM.ScheduleData, 1, -1 do
 		local v = DBM.ScheduleData[i]
 		if v.func == func then
@@ -1975,11 +1975,11 @@ function DBM.StartTimer(name)
 	if not name then
 		return;
 	end
-	
+
 	DBM.TimerData[name] = {
 		["elapsed"] = 0,
 		["stopped"] = false,
-	};	
+	};
 end
 
 
@@ -1987,7 +1987,7 @@ function DBM.GetTimer(name)
 	if (not name) or (not DBM.TimerData[name]) then
 		return 0;
 	end
-	
+
 	return DBM.TimerData[name].elapsed;
 end
 
@@ -1996,7 +1996,7 @@ function DBM.StopTimer(name)
 	if (not name) or (not DBM.TimerData[name]) then
 		return 0;
 	end
-	
+
 	DBM.TimerData[name].stopped = true;
 	return DBM.TimerData[name].elapsed;
 end
@@ -2006,7 +2006,7 @@ function DBM.ResumeTimer(name)
 	if (not name) or (not DBM.TimerData[name]) then
 		return 0;
 	end
-	
+
 	DBM.TimerData[name].stopped = false;
 	return DBM.TimerData[name].elapsed;
 end
@@ -2016,7 +2016,7 @@ function DBM.EndTimer(name)
 	if (not name) or (not DBM.TimerData[name]) then
 		return 0;
 	end
-	
+
 	local elapsed = DBM.TimerData[name].elapsed;
 	DBM.TimerData[name] = nil;
 	return elapsed;
@@ -2027,20 +2027,20 @@ function DBM.StartStatusBarTimer(timer, name, icon, noBroadcast, syncedBy, start
 	if event == "CHAT_MSG_ADDON" and arg3 == "WHISPER" and not justSentBarRequest then
 		return
 	end
-	
+
 	--support for old API
 	if (type(icon) == "boolean") or type(noBroadcast) == "string" or type(startedBy) == "number" or type(repeatingTimer) == "number" then
 		local tmp, tmp2;
 		tmp = noBroadcast;
 		noBroadcast = icon;
-		
+
 		tmp2 = syncedBy;
 		syncedBy = tmp;
-		
+
 		tmp = startedBy
 		startedBy = tmp2;
-		
-		tmp2 = repeatingTimer;		
+
+		tmp2 = repeatingTimer;
 		repeatingTimer = tmp;
 
 		repetitions = tmp2;
@@ -2070,7 +2070,7 @@ function DBM.StartStatusBarTimer(timer, name, icon, noBroadcast, syncedBy, start
 		end
 	end
 	--
-	
+
 	if (type(timer) ~= "number") or (not name) or (name == "") or not DBM.Options.EnableStatusBars then
 		return;
 	end
@@ -2098,14 +2098,14 @@ function DBM.StartStatusBarTimer(timer, name, icon, noBroadcast, syncedBy, start
 				barId = i;
 				break;
 			end
-		end	
+		end
 		if not barId then
 			barId = DBMStatusBars_CreateNewBar();
 			if not barId then
 				return;
 			end
 		end
-	end	
+	end
 	if not startedBy then
         _, _, addon = string.find(debugstack(2, 2, 2), "\\([%w%s]+).lua");
         if type(addon) == "string" then
@@ -2159,7 +2159,7 @@ function DBM.StartStatusBarTimer(timer, name, icon, noBroadcast, syncedBy, start
 						if name:find(exp) then
 							return
 						end
-					end					
+					end
 				end
 			end
 			newAddon = DBM.AddOns[addon].Name;
@@ -2204,13 +2204,13 @@ function DBM.StartStatusBarTimer(timer, name, icon, noBroadcast, syncedBy, start
 			["syncedBar"] = syncedBar,
 			["frame"]	= getglobal("DBM_StatusBarTimer"..barId),
 		};
-	
-		if DBM.StatusBarData[name].frame.specialColor and not specialColor then 
+
+		if DBM.StatusBarData[name].frame.specialColor and not specialColor then
 			--we need to reset the color if we restart a timer with the same name...but without a specific color
 			getglobal(DBM.StatusBarData[name].frame:GetName().."Bar"):SetStatusBarColor(
-											DBM.Options.StatusBarColor.r, 
-											DBM.Options.StatusBarColor.g, 
-											DBM.Options.StatusBarColor.b, 
+											DBM.Options.StatusBarColor.r,
+											DBM.Options.StatusBarColor.g,
+											DBM.Options.StatusBarColor.b,
 											DBM.Options.StatusBarColor.a
 										   );
 		end
@@ -2242,13 +2242,13 @@ function DBM.StartStatusBarTimer(timer, name, icon, noBroadcast, syncedBy, start
 		if specialColor then
 			getglobal(DBM.StatusBarData[name].frame:GetName().."Bar"):SetStatusBarColor(color.R, color.G, color.B, color.A);
 		end
-		
+
 		if icon and DBM.Options.ShowIcon and getglobal(DBM.StatusBarData[name].frame:GetName().."Icon") then
 			getglobal(DBM.StatusBarData[name].frame:GetName().."Icon"):SetTexture(""); --clear texture because we don't want to see the old icon if the new texture does not exist
 			getglobal(DBM.StatusBarData[name].frame:GetName().."Icon"):SetTexture(icon);
 			getglobal(DBM.StatusBarData[name].frame:GetName().."Icon"):Show();
 		end
-		
+
 		getglobal(DBM.StatusBarData[name].frame:GetName().."Bar"):SetAlpha(1);
 		DBM.StatusBarData[name].frame:SetAlpha(1);
 		DBM.StatusBarData[name].frame:Show();
@@ -2256,7 +2256,7 @@ function DBM.StartStatusBarTimer(timer, name, icon, noBroadcast, syncedBy, start
 	end
 	if not noBroadcast then
 		if icon then
-			
+
 			if specialColor then
 				if repeatingTimer then
 					DBM.AddSyncMessage("SIRPCSBT "..timer.." "..DBM.StatusBarData[name].repetitions.." "..addon.." "..string.format("%1.2f", color.R).."~"..string.format("%1.2f", color.G).."~"..string.format("%1.2f", color.B).."~"..string.format("%1.2f", color.A).." #"..icon.."# "..name);
@@ -2285,7 +2285,7 @@ function DBM.StartStatusBarTimer(timer, name, icon, noBroadcast, syncedBy, start
 				end
 			end
 		end
-	end	
+	end
 end
 
 function DBM.StartRepeatingStatusBarTimer(timer, name, icon, repetitions, noBroadcast, syncedBy, startedBy)
@@ -2319,7 +2319,7 @@ function DBM.GetStatusBarTimerTimeLeft(name)
 	if (not name) or (not DBM.StatusBarData[name]) then
 		return false;
 	end
-	
+
 	return (DBM.StatusBarData[name].timer - DBM.StatusBarData[name].elapsed), DBM.StatusBarData[name].elapsed, DBM.StatusBarData[name].syncedBy;
 end
 
@@ -2328,7 +2328,7 @@ function DBM.EndStatusBarTimer(name, noBroadcast, syncedBy, endRepeating, dontEn
 	if event == "CHAT_MSG_ADDON" and arg3 == "WHISPER" and not justSentBarRequest then
 		return
 	end
-	
+
 	if not dontEndHugeBar then
 		local i = 1
 		while getglobal("DBM_HugeBar"..i) do
@@ -2341,25 +2341,25 @@ function DBM.EndStatusBarTimer(name, noBroadcast, syncedBy, endRepeating, dontEn
 	if (not name) or (not DBM.StatusBarData[name]) then
 		return;
 	end
-	
 
-	
+
+
 	if syncedBy and (not DBM.SyncInfo.Clients[syncedBy]) then
 		return;
 	end
-	
+
 	local timeLeft, elapsed = DBM.GetStatusBarTimerTimeLeft(name);
 	if syncedBy and elapsed < 3 and (not (endRepeating or DBM.StatusBarData[name].isRepeating)) then --don't stop new timers on sync!
 		return;
 	end
-	
-	if syncedBy and DBM.StatusBarData[name].isRepeating 
-	and (not endRepeating) 
-	and ((not DBM.SyncInfo.Clients[syncedBy]) or (DBM.SyncInfo.Clients[syncedBy] 
+
+	if syncedBy and DBM.StatusBarData[name].isRepeating
+	and (not endRepeating)
+	and ((not DBM.SyncInfo.Clients[syncedBy]) or (DBM.SyncInfo.Clients[syncedBy]
 	and tonumber(DBM.SyncInfo.Clients[syncedBy]) < 1.60)) then
 		return;
 	end
-	
+
 	if DBM.StatusBarData[name].isRepeating and not endRepeating then
 		DBM.StatusBarData[name].repetitions = DBM.StatusBarData[name].repetitions - 1
 		if DBM.StatusBarData[name].repetitions <= 0 then
@@ -2396,13 +2396,13 @@ function DBM.EndStatusBarTimer(name, noBroadcast, syncedBy, endRepeating, dontEn
 			DBM.StatusBarData[name].frame.isRepeating = false;
 			DBM.StatusBarData[name].frame.repetitions = 0;
 			DBM.StatusBarData[name].frame.table = nil;
-			DBM.StatusBarData[name].frame.specialColor = false;	
+			DBM.StatusBarData[name].frame.specialColor = false;
 			DBM.StatusBarData[name].frame.fading = nil;
 			getglobal(DBM.StatusBarData[name].frame:GetName().."Bar"):SetStatusBarColor(DBM.Options.StatusBarColor.r, DBM.Options.StatusBarColor.g, DBM.Options.StatusBarColor.b, DBM.Options.StatusBarColor.a);
 			getglobal(DBM.StatusBarData[name].frame:GetName().."Icon"):Hide();
 			DBM.StatusBarData[name] = nil;
 		end
-		
+
 		if not noBroadcast then
 			if endRepeating then
 				DBM.AddSyncMessage("ENDRPSBT "..name);
@@ -2410,7 +2410,7 @@ function DBM.EndStatusBarTimer(name, noBroadcast, syncedBy, endRepeating, dontEn
 				DBM.AddSyncMessage("ENDSBT "..name);
 			end
 		end
-		
+
 		DBMStatusBars_PullTogether();
 	end
 end
@@ -2419,12 +2419,12 @@ function DBM.UpdateStatusBarTimer(name, elapsed, timer, newName, newIcon, noBroa
 	if event == "CHAT_MSG_ADDON" and arg3 == "WHISPER" and not justSentBarRequest then
 		return
 	end
-	
+
 	if type(newIcon) == "boolean" and noBroadcast == nil then
 		noBroadcast = newIcon;
 		newIcon = nil;
 	end
-	
+
 	if (not name) or (not DBM.StatusBarData[name]) or (not DBM.StatusBarData[name].frame) then
 		return;
 	end
@@ -2462,7 +2462,7 @@ function DBM.UpdateStatusBarTimer(name, elapsed, timer, newName, newIcon, noBroa
 			return;
 		end
 	end
-	
+
 
 	if type(newName) == "string" then
 		DBM.StatusBarData[name].frame.usedBy = newName;
@@ -2480,17 +2480,17 @@ function DBM.UpdateStatusBarTimer(name, elapsed, timer, newName, newIcon, noBroa
 			getglobal(DBM.StatusBarData[name].frame:GetName().."BarText"):SetText(newName);
 		end
 	end
-	if tonumber(timer) then		
-		getglobal(DBM.StatusBarData[name].frame:GetName().."Bar"):SetMinMaxValues(0, timer);			
+	if tonumber(timer) then
+		getglobal(DBM.StatusBarData[name].frame:GetName().."Bar"):SetMinMaxValues(0, timer);
 		DBM.StatusBarData[name].timer = timer;
 	else
 		timer = DBM.StatusBarData[name].timer;
 	end
-	if tonumber(elapsed) then		
+	if tonumber(elapsed) then
 		getglobal(DBM.StatusBarData[name].frame:GetName().."BarTimer"):SetText(DBM.SecondsToTime(elapsed));
 		getglobal(DBM.StatusBarData[name].frame:GetName().."Bar"):SetValue(tonumber(elapsed));
 		DBM.StatusBarData[name].elapsed = tonumber(elapsed);
-	end	
+	end
 	if type(newIcon) == "string" and newIcon ~= "nil" then
 		getglobal(DBM.StatusBarData[name].frame:GetName().."Icon"):SetTexture("");
 		getglobal(DBM.StatusBarData[name].frame:GetName().."Icon"):SetTexture(newIcon);
@@ -2518,7 +2518,7 @@ function DBM.UpdateStatusBarTimer(name, elapsed, timer, newName, newIcon, noBroa
 			if DBM.StatusBarData[newName].startedBy and DBM.StatusBarData[newName].startedBy ~= "UNKNOWN" then
 				GameTooltip:AddDoubleLine(DBM_SBT_BOSSMOD, DBM.StatusBarData[newName].startedBy, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 			end
-			if DBM.StatusBarData[newName].syncedBy and DBM.StatusBarData[newName].syncedBy ~= DBM_LOCAL then	
+			if DBM.StatusBarData[newName].syncedBy and DBM.StatusBarData[newName].syncedBy ~= DBM_LOCAL then
 				GameTooltip:AddDoubleLine(DBM_SBT_STARTEDBY, DBM.StatusBarData[newName].syncedBy, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 			else
 				GameTooltip:AddDoubleLine(DBM_SBT_STARTEDBY, UnitName("player"), NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
@@ -2527,7 +2527,7 @@ function DBM.UpdateStatusBarTimer(name, elapsed, timer, newName, newIcon, noBroa
 			GameTooltip:Show();
 		end
 	end
-	
+
 	if not noBroadcast then
 		DBM.AddSyncMessage("UPDISBT #"..tostring(name).."# "..tostring(elapsed).." "..tostring(timer).." #"..tostring(newIcon).."# "..tostring((newName or name)));
 	end
@@ -2587,7 +2587,7 @@ function DBM.Announce(Warning, localWarning, addon, forceAnnounce, color)
 	if (DBM.AddOns[addon] and DBM.AddOns[addon].Options.Announce and (DBM.Rank >= 1 or (GetNumRaidMembers() == 0 and GetNumPartyMembers() > 0)) and not localWarning) or (forceAnnounce and (DBM.Rank >= 1 or IsPartyLeader())) then
 		SendChatMessage(Warning, "RAID_WARNING");
 	end
-	
+
 	if DBM.Options.Gui["SelfWarning_Enable"] then
 		RaidWarningFrames_AddLocalMessages(Warning, true);
 	end
@@ -2599,7 +2599,7 @@ function DBM.AddMsg(msg, addon, noHookedChatFrame)
 		_, _, addon = string.find(debugstack(2, 2, 2), "\\([%w%s]+).lua");
 		if type(addon) == "string" then
 			addon = string.gsub(addon, "LV", "");
-		else        
+		else
 			_, _, addon = string.find(debugstack(2, 2, 2), "\\[%w%s]+\\([%w%s]+).lua");
 			if type(addon) == "string" then
 				addon = string.gsub(addon, "LV", "");
@@ -2620,7 +2620,7 @@ function DBM.AddMsg(msg, addon, noHookedChatFrame)
 		DBM.Hooks.oldChatFrame_AddMessage(ChatFrame1, "|cffff7d0a<|r|cffffd200"..addon.."|r|cffff7d0a>|r "..tostring(msg), 0.41, 0.8, 0.94);
 	elseif DEFAULT_CHAT_FRAME then
 		DEFAULT_CHAT_FRAME:AddMessage("|cffff7d0a<|r|cffffd200"..addon.."|r|cffff7d0a>|r "..tostring(msg), 0.41, 0.8, 0.94);
-	end	
+	end
 end
 
 function DBM.SendHiddenWhisper(msg, target)
@@ -2633,9 +2633,9 @@ function DBM.SendHiddenWhisper(msg, target)
 end
 
 function DBM.InterceptWhisper(msg, player, flag)
-	if not DBM.InCombat 
-	or not DBM.HideWhispers 	
-	or not DBM.Options.AutoRespond 
+	if not DBM.InCombat
+	or not DBM.HideWhispers
+	or not DBM.Options.AutoRespond
 	or string.sub(msg, 1, 18) == "<Deadly Boss Mods>"
 	or string.sub(msg, 1, 20) == "<Vendetta Boss Mods>"
 	or string.sub(msg, 1, 4) == "GA\\t"
@@ -2648,7 +2648,7 @@ function DBM.InterceptWhisper(msg, player, flag)
 	if not DBM.Raid[player] then
 		if DBM.WhisperSpamProtection[player] and (GetTime() - DBM.WhisperSpamProtection[player]) < 60 then
 			DBM.WhisperSpamProtection[player] = GetTime();
-			
+
 			if not DBM.WhispersDuringCombat[table.getn(DBM.WhispersDuringCombat)] or not (DBM.WhispersDuringCombat[table.getn(DBM.WhispersDuringCombat)].name == player and DBM.WhispersDuringCombat[table.getn(DBM.WhispersDuringCombat)].msg == msg and (time() - DBM.WhispersDuringCombat[table.getn(DBM.WhispersDuringCombat)].time) <= 2) then
 				table.insert(DBM.WhispersDuringCombat, {["name"] = player, ["msg"] = msg, ["time"] = time(), ["hidden"] = not DBM.Options.ShowWhispersDuringCombat})
 			end
@@ -2665,7 +2665,7 @@ function DBM.InterceptWhisper(msg, player, flag)
 			if DBM.Options.EnableStatusCommand then
 				message = message;
 			end
-			if DBM.Options.HideOutgoingInfoWhisper then		
+			if DBM.Options.HideOutgoingInfoWhisper then
 				DBM.SendHiddenWhisper("<Deadly Boss Mods> "..message, player);
 			else
 				SendChatMessage("<Deadly Boss Mods> "..message, "WHISPER", nil, player);
@@ -2685,8 +2685,8 @@ function DBM.EndHideWhispers(bossName)
 		return;
 	end
 	local playersToInform = {};
-	local infoString = "";	
-	local missedWhispersInfoShown = false;	
+	local infoString = "";
+	local missedWhispersInfoShown = false;
 
 	for index, value in pairs(DBM.WhispersDuringCombat) do
 		if value.name and not playersToInform[value.name] then
@@ -2700,11 +2700,11 @@ function DBM.EndHideWhispers(bossName)
 			DBM.AddMsg(string.format(DBM_SHOW_MISSED_WHISPER, value.name, value.msg), date("%H:%M:%S", value.time));
 		end
 	end
-	
+
 	if DBM.InCombat and not bossName and DBM.Options.ShowCombatInformations and DBM.SecondsToTime(GetTime() - DBM.CombatStartTime) and DBM.SecondsToTime(GetTime() - DBM.CombatStartTime) ~= "" then
 		DBM.AddMsg(string.format(DBM_COMBAT_ENDED, DBM.SecondsToTime((GetTime() - DBM.CombatStartTime), true)));
 	end
-	
+
 	if bossName then
 		if DBM.InCombat and DBM.Bosses[GetRealZoneText()] and DBM.Bosses[GetRealZoneText()][DBM.InCombat] and DBM.Bosses[GetRealZoneText()][DBM.InCombat].realName then
 			infoString = string.format(DBM_BOSS_DOWN, DBM.Bosses[GetRealZoneText()][DBM.InCombat].realName, DBM.SecondsToTime((GetTime() - DBM.CombatStartTime), true))
@@ -2714,11 +2714,11 @@ function DBM.EndHideWhispers(bossName)
 	else
 		infoString = string.format(DBM_COMBAT_ENDED, DBM.SecondsToTime((GetTime() - DBM.CombatStartTime), true));
 	end
-	
-	for index, value in pairs(playersToInform) do		
+
+	for index, value in pairs(playersToInform) do
 		DBM.SendHiddenWhisper("<Deadly Boss Mods> "..infoString, index);
 	end
-	
+
 	for i, v in pairs(DBM.WhispersDuringCombat) do
 		DBM.WhispersDuringCombat[i] = nil
 	end
@@ -2813,7 +2813,7 @@ function DBM.SpecialWarningsOnUpdate(elapsed)
 		end
 	end
 	if type(DBM.SpecialWarningTextIsFading) == "number" then
-		DBM.SpecialWarningTextIsFading = DBM.SpecialWarningTextIsFading - elapsed;		
+		DBM.SpecialWarningTextIsFading = DBM.SpecialWarningTextIsFading - elapsed;
 		if DBM.SpecialWarningTextIsFading <= 0 then
 			DBMSpecialWarningFrame:Hide();
 			DBMSpecialWarningFrameText:SetText("");
@@ -2825,7 +2825,7 @@ function DBM.SpecialWarningsOnUpdate(elapsed)
 		end
 	end
 	if type(DBM.IsFlashing) == "number" then
-		DBM.IsFlashing = DBM.IsFlashing - elapsed;		
+		DBM.IsFlashing = DBM.IsFlashing - elapsed;
 		if DBM.IsFlashing <= 0 then
 			DBM.IsFlashing = false;
 			DBM.RedFlash = false;
@@ -2837,7 +2837,7 @@ function DBM.SpecialWarningsOnUpdate(elapsed)
 		end
 	end
 	if type(DBM.RedFlash) == "number" then
-		DBM.RedFlash = DBM.RedFlash - elapsed;		
+		DBM.RedFlash = DBM.RedFlash - elapsed;
 		if DBM.RedFlash <= 0 then
 			DBM.RedFlash = DBM.Options.FlashDuration;
 			LowHealthFrame:SetAlpha(0);
@@ -2854,7 +2854,7 @@ function DBM.SpecialWarningsOnUpdate(elapsed)
 		end
 	end
 	if type(DBM.BlueFlash) == "number" then
-		DBM.BlueFlash = DBM.BlueFlash - elapsed;		
+		DBM.BlueFlash = DBM.BlueFlash - elapsed;
 		if DBM.BlueFlash <= 0 then
 			DBM.BlueFlash = DBM.Options.FlashDuration;
 			DBMBlueFlashFrame:SetAlpha(0);
@@ -2885,13 +2885,13 @@ function DBM.HasAggro(mob)
 	if DBM.Options.CharSettings[UnitName("player")].AggroSound then
 		PlaySoundFile("Sound\\Spells\\PVPFlagTaken.wav");
 	end
-	
+
 	if DBM.Options.CharSettings[UnitName("player")].AggroSpecialWarning then
 		DBM.AddSpecialWarning(DBM_AGGRO_FROM..mob, DBM.Options.CharSettings[UnitName("player")].AggroShake, DBM.Options.CharSettings[UnitName("player")].AggroFlash)
 	else
 		DBM.AddSpecialWarning("", DBM.Options.CharSettings[UnitName("player")].AggroShake, DBM.Options.CharSettings[UnitName("player")].AggroFlash)
 	end
-	
+
 	if DBM.Options.CharSettings[UnitName("player")].AggroLocalWarning then
 		if (DBM.Options.Gui ~= nil) then
 			DBMWarningFrame:AddMessage(DBM_AGGRO_FROM..mob, DBM.Options.Gui["SelfWarning_R"], DBM.Options.Gui["SelfWarning_G"], DBM.Options.Gui["SelfWarning_B"], DBM.Options.Gui["SelfWarning_Delay"]);
@@ -2910,8 +2910,8 @@ function DBM.AddSyncMessage(msg, noSpamProt)
 		return;
 	end
 	local _, instanceType = IsInInstance()
-	
-	if type(msg) == "string" and (not DBM.SpamProtection[msg]) then		
+
+	if type(msg) == "string" and (not DBM.SpamProtection[msg]) then
 		if noSpamProt then
 			if instanceType == "pvp" then
 				SendAddonMessage("LVBM NSP", msg, "BATTLEGROUND")
@@ -2946,18 +2946,18 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 	if not player or not DBM.Raid[player] then -- only accept syncs from players in the raid group
 		return;
 	end
-	
+
 	if not DBM.Options.AllowSyncFromOldVersions then
 		if ((tonumber(DBM.SyncInfo.Clients[player]) or 0) < (tonumber(DBM.Version) or 0)) and msg ~= "ENDALL" and not msg:find("VER") then
 			return;
 		end
 	end
-	
-	if type(msg) == "string" and msg ~= "" and msg ~= " " and (not DBM.SpamProtection[msg]) then		
+
+	if type(msg) == "string" and msg ~= "" and msg ~= " " and (not DBM.SpamProtection[msg]) then
 		if not noSpamProt then
 			DBM.SpamProtection[msg] = 1.5;
-		end	
-		
+		end
+
 		local name, color, colorR, colorG, colorB, colorA, icon;
 		for i, v in pairs(syncArgs) do
 			syncArgs[i] = nil
@@ -2965,7 +2965,7 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 		for value in string.gmatch(msg, "([^%s]+)") do
 			table.insert(syncArgs, value);
 		end
-		
+
 		if not DBM.SyncInfo.Clients[player] then
 			DBM.SyncInfo.Clients[player] = "2.10";
 		end
@@ -2975,7 +2975,7 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 			if not name then
 				return;
 			end
-			
+
 			local timeLeft, timeElapsed = DBM.GetStatusBarTimerTimeLeft(name);
 			local totalTime = (timeLeft or 0) + (timeElapsed or 0);
 			if tonumber(syncArgs[2]) and syncArgs[3] and (not DBM.GetStatusBarTimerTimeLeft(name) or (timeElapsed or 0)/(totalTime or 0) > 0.85) then
@@ -2986,7 +2986,7 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 			if not name or not icon then
 				return;
 			end
-			
+
 			local timeLeft, timeElapsed = DBM.GetStatusBarTimerTimeLeft(name);
 			local totalTime = (timeLeft or 0) + (timeElapsed or 0);
 			if tonumber(syncArgs[2]) and syncArgs[3] and (not DBM.GetStatusBarTimerTimeLeft(name) or (timeElapsed or 0)/(totalTime or 0) > 0.85) then
@@ -2994,7 +2994,7 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 			end
 		elseif syncArgs[1] == "ENDSBT" then
 			_, _, _, name = string.find(msg, "([^%s]+) (.*)");
-			
+
 			local timeLeft, timeElapsed = DBM.GetStatusBarTimerTimeLeft(name or "");
 
 			if name and (timeElapsed or 0) > 2 then
@@ -3018,7 +3018,7 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 			end
 		elseif syncArgs[1] == "ENDRPSBT" then
 			_, _, _, name = string.find(msg, "([^%s]+) (.*)");
-			
+
 			local timeLeft, timeElapsed = DBM.GetStatusBarTimerTimeLeft(name or "");
 
 			if name and (timeElapsed or 0) > 2 then
@@ -3030,7 +3030,7 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 				return;
 			end
 			_, _, colorR, colorG, colorB, colorA = string.find(color, "([%d%.]+)~([%d%.]+)~([%d%.]+)~([%d%.]+)");
-			
+
 			if tonumber(syncArgs[2]) and syncArgs[3] and (not DBM.GetStatusBarTimerTimeLeft(name)) and tonumber(colorR) and tonumber(colorG) and tonumber(colorB) and tonumber(colorA) then
 				DBM.StartColoredStatusBarTimer(tonumber(syncArgs[2]), name, nil, tonumber(colorR), tonumber(colorG), tonumber(colorB), tonumber(colorA), true, player, syncArgs[3]);
 			end
@@ -3040,7 +3040,7 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 				return;
 			end
 			_, _, colorR, colorG, colorB, colorA = string.find(color, "([%d%.]+)~([%d%.]+)~([%d%.]+)~([%d%.]+)");
-			
+
 			if tonumber(syncArgs[2]) and syncArgs[3] and (not DBM.GetStatusBarTimerTimeLeft(name)) and tonumber(colorR) and tonumber(colorG) and tonumber(colorB) and tonumber(colorA) then
 				DBM.StartColoredStatusBarTimer(tonumber(syncArgs[2]), name, icon, tonumber(colorR), tonumber(colorG), tonumber(colorB), tonumber(colorA), true, player, syncArgs[3]);
 			end
@@ -3050,7 +3050,7 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 				return;
 			end
 			_, _, colorR, colorG, colorB, colorA = string.find(color, "([%d%.]+)~([%d%.]+)~([%d%.]+)~([%d%.]+)");
-			
+
 			if tonumber(syncArgs[2]) and tonumber(syncArgs[3]) and syncArgs[4] and (not DBM.GetStatusBarTimerTimeLeft(name)) and tonumber(colorR) and tonumber(colorG) and tonumber(colorB) and tonumber(colorA) then
 				DBM.StartRepeatingColoredStatusBarTimer(tonumber(syncArgs[2]), name, nil, tonumber(syncArgs[3]), tonumber(colorR), tonumber(colorG), tonumber(colorB), tonumber(colorA), true, player, syncArgs[4]);
 			end
@@ -3060,7 +3060,7 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 				return;
 			end
 			_, _, colorR, colorG, colorB, colorA = string.find(color, "([%d%.]+)~([%d%.]+)~([%d%.]+)~([%d%.]+)");
-			
+
 			if tonumber(syncArgs[2]) and tonumber(syncArgs[3]) and syncArgs[4] and (not DBM.GetStatusBarTimerTimeLeft(name)) and tonumber(colorR) and tonumber(colorG) and tonumber(colorB) and tonumber(colorA) then
 				DBM.StartRepeatingColoredStatusBarTimer(tonumber(syncArgs[2]), name, icon, tonumber(syncArgs[3]), tonumber(colorR), tonumber(colorG), tonumber(colorB), tonumber(colorA), true, player, syncArgs[4]);
 			end
@@ -3173,33 +3173,33 @@ function DBM.OnSyncMessage(msg, player, noSpamProt)
 					disableAnnounce = true -- other player is using an english client
 				elseif locale:sub(0, 2) ~= "en" and GetLocale():sub(0, 2) == "en" then
 					return -- we are using an english client, the other guy not, so we can return here...the remote dbm client must disable announce
-				
+
 				elseif tonumber(bossModVer) and tonumber(bossModVer) > tonumber(DBM.AddOns[bossID].Version) then -- both players have english clients or both have non-english clients
 					disableAnnounce = true -- remote dbm client got a newer version
 				elseif tonumber(bossModVer) and tonumber(bossModVer) < tonumber(DBM.AddOns[bossID].Version) then
 					return -- we are using a later version than the other guy
-				
+
 				elseif tonumber(dbmVer) and tonumber(dbmVer) > tonumber(DBM_REVISION) then -- both players are using the same version
 					disableAnnounce = true -- he got a newer version of deadly boss mods, we'll disable announce
 				elseif tonumber(dbmVer) and tonumber(dbmVer) < tonumber(DBM_REVISION) then
 					return -- he will disable announce
-				
+
 				elseif player and player:len() < UnitName("player"):len() then -- prefer player with the shortest name
 					disableAnnounce = true
 				elseif player and player:len() > UnitName("player"):len() then
 					return
-					
-				elseif tonumber(random) and tonumber(random) > randomNumber then 
-					disableAnnounce = true 
+
+				elseif tonumber(random) and tonumber(random) > randomNumber then
+					disableAnnounce = true
 				elseif tonumber(random) and tonumber(random) < randomNumber then
 					return
-					
+
 				elseif player and player > UnitName("player") then -- we both rolled the same number!
 					disableAnnounce = true
 				elseif player and player < UnitName("player") then
 					return
 				end
-				
+
 				if disableAnnounce then -- should always be true here since two players cannot have the same name!
 					DBM.AddOns[bossID].Options.Announce = false
 					table.insert(tempDisabledMods, DBM.AddOns[bossID]) -- to re-enable it after the boss is dead/player logout
@@ -3231,7 +3231,7 @@ function DBM.GetDebuff(unitID, buff)
 		return nil;
 	end
 	local i = 1;
-	
+
 	while UnitDebuff(unitID, i) ~= nil do
 		if UnitDebuff(unitID, i) == buff then
 			return i
@@ -3248,13 +3248,13 @@ function DBM.SetIconByName(name, icon)
 	if DBM.Rank == 0 then
 		return;
 	end
-	
+
 	if (icon == nil or tonumber(icon) < 1 or tonumber(icon) > 8) then
 		icon = 8;
 	else
 		icon = tonumber(icon);
 	end
-	
+
 	for i = 1, GetNumRaidMembers() do
 		if (UnitName("raid"..i) == name) then
 			if GetRaidTargetIndex("raid"..i) ~= icon then
@@ -3269,7 +3269,7 @@ function DBM.ClearIconByName(name)
 	if DBM.Rank == 0 then
 		return;
 	end
-	
+
 	for i=1, GetNumRaidMembers() do
 		if (UnitName("raid"..i) == name) then
 			SetRaidTargetIcon("raid"..i, 0);
@@ -3295,23 +3295,23 @@ function DBM.DetectCombat(name)
 		end
 	end
 	if unitID and UnitAffectingCombat(unitID) then
-		return unitID;		
+		return unitID;
 	else
-		return nil;		
+		return nil;
 	end
 end
 
 function DBM.UnitExists(name)
 	if type(name) ~= "string" and type(name) ~= "table" then
 		return false;
-	end	
-	
-	if DBM.GetBuff("player", DBM_REDEMPTION) or ((GetTime() - DBM.LastBloodrage) < 7.5) then		
+	end
+
+	if DBM.GetBuff("player", DBM_REDEMPTION) or ((GetTime() - DBM.LastBloodrage) < 7.5) then
 		return false;
-	end	
+	end
 	if DBM.GetBuff("player", DBM_FEIGNDEATH) or ((GetTime() - DBM.LastFeignDeath) < 20) then
 		return false;
-	end	
+	end
 	if (GetTime() - DBM.LastBloodrage) < 7.5 then
 		return false;
 	end
@@ -3330,11 +3330,11 @@ function DBM.UnitExists(name)
 			end
 		end
 		return unitTable;
-	else	
+	else
 		if UnitName("target") == name and not UnitIsPlayer("target") then
 			return true;
 		end
-		
+
 		for i = 1, GetNumRaidMembers() do
 			if UnitName("raid"..i.."target") == name and not UnitIsPlayer("raid"..i.."target") then
 				return true;
@@ -3346,7 +3346,7 @@ end
 
 function DBM.CombatStart(bossID, delay, noBroadcast, syncedBy)
 	if DBM.Bosses[GetRealZoneText()] and DBM.Bosses[GetRealZoneText()][bossID] and not DBM.InCombat then
-		
+
 		local bossModVer = "1.0"
 		local announce
 
@@ -3361,7 +3361,7 @@ function DBM.CombatStart(bossID, delay, noBroadcast, syncedBy)
 					else
 						DBM.AddOns[value].OnCombatStart(delay);
 					end
-				end				
+				end
 			end
 		end
 		DBM.InCombat = bossID;
@@ -3374,11 +3374,11 @@ function DBM.CombatStart(bossID, delay, noBroadcast, syncedBy)
 				DBM.AddMsg(string.format(DBM_BOSS_SYNCED_BY, syncedBy));
 			end
 		end
-		
+
 		if not noBroadcast then
 			DBM.AddSyncMessage("SC "..tostring(delay).." "..bossID)
 		end
-		
+
 		if announce and (DBM.Rank >= 1 or (GetNumRaidMembers() == 0 and GetNumPartyMembers() > 0)) then
 			DBM.AddSyncMessage("SAM#"..bossID.."#"..GetLocale().."#"..bossModVer.."#"..DBM_REVISION.."#"..randomNumber, true)
 		end
@@ -3391,9 +3391,9 @@ function DBM.CombatEnd(bossName, noBroadcast, subBossName)
 		if DBM.AddOns.RomuloAndJulianne and DBM.AddOns.RomuloAndJulianne.Phase ~= 2 then
 			return;
 		end
-	end	
-	
-	
+	end
+
+
 	if not subBossName then
 		for index, value in pairs(DBM.AddOns) do
 			if value.InCombat then
@@ -3438,7 +3438,7 @@ function DBM.CombatEnd(bossName, noBroadcast, subBossName)
 			end
 		end
 	end
-	
+
 	if bossName or subBossName then
 		if DBM.Bosses[GetRealZoneText()] then
 			if subBossName then
@@ -3486,7 +3486,7 @@ function DBM.CombatEnd(bossName, noBroadcast, subBossName)
 		if subBossName and DBM.Bosses[GetRealZoneText()] then
 			local allBossesDown = true;
 			for index, value in pairs(DBM.Bosses[GetRealZoneText()]) do
-				if type(value.killName) == "table" then					
+				if type(value.killName) == "table" then
 					for index2, value2 in pairs(value.killName) do
 						if value2.name == subBossName then
 							for index3, value3 in pairs(DBM.Bosses[GetRealZoneText()][index].killName) do
@@ -3504,7 +3504,7 @@ function DBM.CombatEnd(bossName, noBroadcast, subBossName)
 			end
 		end
 	end
-	
+
 	if not subBossName then
 		DBM.EndHideWhispers(bossName);
 		DBM.InCombat = false;
@@ -3528,7 +3528,7 @@ end
 
 function DBM.GetBossHP(name)
 	local hitpoints;
-	
+
 	if name == DBM_FOURHORSEMEN_THANE and DBM.AddOns.FourHorsemen and DBM.AddOns.FourHorsemen.InCombat then
 		return "Mograine "..DBM.AddOns.FourHorsemen[DBM_FOURHORSEMEN_MOGRAINE].."%%, Thane Korth'azz "..DBM.AddOns.FourHorsemen[DBM_FOURHORSEMEN_THANE].."%%, Blaumeux "..DBM.AddOns.FourHorsemen[DBM_FOURHORSEMEN_LADY].."%%, Zeliek "..DBM.AddOns.FourHorsemen[DBM_FOURHORSEMEN_ZELIEK].."%%";
 	elseif name == DBM_RJ_JULIANNE and DBM.AddOns.RomuloAndJulianne and DBM.AddOns.RomuloAndJulianne.InCombat then
@@ -3546,7 +3546,7 @@ function DBM.GetBossHP(name)
 				end
 			end
 		end
-		
+
 		if RHP and JHP then
 			return DBM_RJ_ROMULO.." "..RHP..", "..DBM_RJ_JULIANNE.." "..JHP
 		elseif RHP then
@@ -3555,7 +3555,7 @@ function DBM.GetBossHP(name)
 			return DBM_RJ_JULIANNE.." "..JHP;
 		end
 	end
-	
+
 	for i = 1, GetNumRaidMembers() do
 		if UnitName("raid"..i.."target") == name and not UnitIsPlayer("raid"..i.."target") then
 			hitpoints = tostring(math.floor((UnitHealth("raid"..i.."target")/UnitHealthMax("raid"..i.."target")) * 100)).."%%";
@@ -3578,7 +3578,7 @@ function DBM.GetBossHP(name)
 	and DBM.Bosses[GetRealZoneText()][DBM.InCombat].BossMods[1] and DBM.AddOns[DBM.Bosses[GetRealZoneText()][DBM.InCombat].BossMods[1]] and DBM.AddOns[DBM.Bosses[GetRealZoneText()][DBM.InCombat].BossMods[1]].GetBossHP then
 		return DBM.AddOns[DBM.Bosses[GetRealZoneText()][DBM.InCombat].BossMods[1]]:GetBossHP() or hitpoints or DBM_HP_UNKNOWN
 	end
-	
+
 	return hitpoints or DBM_HP_UNKNOWN;
 end
 
@@ -3617,7 +3617,7 @@ function DBM.AddPatchnoteMessage(msg, target, longMsg)
 	if longMsg == nil then
 		local longMsg = false;
 	end
-	if string.len(msg) > 240 then		
+	if string.len(msg) > 240 then
 		DBM.AddPatchnoteMessage(string.sub(msg, 1, 240), target, true);
 		msg = string.sub(msg, 241);
 		DBM.AddPatchnoteMessage(msg, target);
@@ -3640,13 +3640,13 @@ function DBM.SendPatchnotes(target, version, lang)
 		DBM.AddPatchnoteMessage("I don't have a newer version than you.", target);
 		return;
 	end
-	
+
 	if not DBM_PN[lang] then
 		DBM.AddPatchnoteMessage("Patchnotes in your language are not available. Sending english notes.", target);
 		lang = "en";
 	end
 	local notesToSend = {};
-	
+
 	version = string.gsub(version, "%.", "");
 	version = tonumber(version);
 	for index, value in pairs(DBM_PN[lang]) do
@@ -3659,7 +3659,7 @@ function DBM.SendPatchnotes(target, version, lang)
 				DBM.AddPatchnoteMessage(value2, target);
 			end
 		end
-	end	
+	end
 end
 
 function DBM.RequestPatchnotes(version)
@@ -3672,8 +3672,8 @@ function DBM.RequestPatchnotes(version)
 	if not clientTable[1] then return; end
 	local player = clientTable[random(1, table.getn(clientTable))];
 	DBM.OnPatchnoteMessage(string.format(DBM_REQ_PATCHNOTES, player));
-	
-	
+
+
 	local oldValue = GetCVar("autoClearAFK");
 	SendChatMessage("LVPNREQ "..DBM.Version.." "..string.sub(GetLocale(), 1, 2), "WHISPER", nil, player);	-- it's not possible to use SendAddonMessage here because sending a whisper-addon-message is bugged in battlegrounds... (fixed? needs tests)
 	SetCVar("autoClearAFK", oldValue);
@@ -3688,7 +3688,7 @@ function DBM.Register()
 		for index2, value2 in pairs(value.Events) do
 			DBM_API:RegisterEvent(index2);
 		end
-	end	
+	end
 end
 
 function DBM.Unregister()
@@ -3706,19 +3706,19 @@ function DBM:NewBossMod(modID, modName, modDescription, modInstance, modGUITab, 
 		DBM.AddMsg(DBM_ERROR_INVALID_MODID);
 		return;
 	end
-	
+
 	if string.find(modID, " ") then
 		DBM.AddMsg("The mod's ID must not contain spaces!", "ERROR");
 	end
-	
+
 	if DBM.AddOns[modID] then
 		DBM.AddMsg(string.format(DBM_ERROR_MODID_EXISTS, modID));
 		return;
 	end
-	
+
 	DBM.AddOns[modID] = setmetatable({
 		ModID		= modID,
-		Name 		= modName,		
+		Name 		= modName,
 		Description	= modDescription,
 		Instance	= modInstance or DBM_OTHER,
 		GUITab		= modGUITab,
@@ -3730,7 +3730,7 @@ function DBM:NewBossMod(modID, modName, modDescription, modInstance, modGUITab, 
 	{
 		__index = DBM.BossModMetatable
 	});
-	
+
 	return DBM.AddOns[modID];
 end
 
@@ -3746,7 +3746,7 @@ function DBM.BossModMetatable:AddOption(optionName, optionDefault, optionGUIText
 	end
 
 	self.Options[optionName] = optionDefault;
-	
+
 	if optionGUIText then
 		if not self.DropdownMenu then
 			self.DropdownMenu = {};
@@ -3773,7 +3773,7 @@ function DBM.BossModMetatable:AddBarOption(optionName, optionDefault, optionGUIT
 	end
 
 	self.Options["BAR"..optionName] = optionDefault;
-	
+
 	if not self.BarMenu then
 		self.BarMenu = {};
 	end
@@ -3810,15 +3810,15 @@ function DBM.BossModMetatable:RegisterCombat(startMethod, delayOrTrigger, bossNa
 	if not DBM.Bosses then
 		DBM.Bosses = {};
 	end
-	
-	
+
+
 	if not DBM.Bosses[self.Instance] then
 		DBM.Bosses[self.Instance] = {};
 	end
 	if DBM.Bosses[self.Instance][self.ModID] then
 		self:AddMsg(DBM_COMBAT_TABLE_WARNING);
 	end
-	
+
 	DBM.Bosses[self.Instance][self.ModID] = {
 		startMethod		= startMethod,
 		name			= bossName or self.Name,
@@ -3828,8 +3828,8 @@ function DBM.BossModMetatable:RegisterCombat(startMethod, delayOrTrigger, bossNa
 			self.ModID,
 		}
 	};
-	
-	
+
+
 	if type(delayOrTrigger) == "table" then
 		DBM.Bosses[self.Instance][self.ModID].startTrigger = {};
 		for index, value in pairs(delayOrTrigger) do
@@ -3844,7 +3844,7 @@ function DBM.BossModMetatable:RegisterCombat(startMethod, delayOrTrigger, bossNa
 	else
 		DBM.Bosses[self.Instance][self.ModID].delay = 5;
 	end
-	
+
 	if type(killName) == "string" then
 		DBM.Bosses[self.Instance][self.ModID].killName = killName;
 	elseif type(killName) == "table" then
@@ -3862,7 +3862,7 @@ end
 
 function DBM.BossModMetatable:RegisterEvents(...)
 	if not self.Events then self.Events = {}; end
-	
+
 	for i = 1, select("#", ...) do
 		self.Events[select(i, ...)] = true;
 		DBM_API:RegisterEvent(select(i, ...));
@@ -3984,7 +3984,7 @@ function DBM.BossModMetatable:StartStatusBarTimer(timer, name, icon, noBroadcast
 	colorG = tonumber(colorG);
 	colorB = tonumber(colorB);
 	colorA = tonumber(colorA);
-	
+
 	DBM.StartStatusBarTimer(timer, name, icon, noBroadcast, nil, self.ModID, repeatingTimer, repetitions, colorR, colorG, colorB, colorA);
 end
 
@@ -4004,17 +4004,17 @@ function DBM.BossModMetatable:SendSync(msg)
 	if type(msg) ~= "string" then
 		return;
 	end
-	
+
 	if not modSpamTable[self.ModID] or not modSpamTable[self.ModID][msg] then
 		if not modSpamTable[self.ModID] then
 			modSpamTable[self.ModID] = {}
 		end
 		modSpamTable[self.ModID][msg] = 3
-		
+
 		if type(self.OnSync) == "function" then
 			self:OnSync(msg, UnitName("player"))
 		end
-		
+
 		local _, instanceTyp = IsInInstance()
 		if instanceTyp == "pvp" then
 			SendAddonMessage("DBM3"..self.ModID, msg, "BATTLEGROUND")
@@ -4038,20 +4038,20 @@ do
 			end
 		end
 	end
-	
+
 	function DBM.BossModMetatable:SetIcon(target, timer, icon, dontRemember)
 		if not self.Options.Announce or DBM.Rank < 1 then return end
 		local oldIcon = getIconByName(target)
 		DBM.SetIconByName(target, icon)
-		
+
 		self:UnScheduleMethod("SetIcon", target) -- unschedule old scheduled icon remove stuff
 		self:UnScheduleMethod("RemoveIcon", target)
-		if tonumber(timer) and oldIcon then			
+		if tonumber(timer) and oldIcon then
 			self:ScheduleMethod(tonumber(timer), "SetIcon", target, nil, oldIcon, true)
 		elseif tonumber(timer) then
 			self:ScheduleMethod(tonumber(timer), "RemoveIcon", target)
 		end
-		
+
 		if not self.icons then
 			self.icons = {}
 		end
@@ -4064,7 +4064,7 @@ do
 			self.icons[oldIcon] = nil
 		end
 	end
-	
+
 	function DBM.BossModMetatable:RemoveIcon(target, ...)
 		if not self.Options.Announce or DBM.Rank < 1 then return end
 		self:UnScheduleMethod("SetIcon", target)
@@ -4079,7 +4079,7 @@ do
 		end
 		DBM.ClearIconByName(target, ...)
 	end
-	
+
 	function DBM.BossModMetatable:RemoveAllIcons()
 		if not self.icons or DBM.Rank < 1 or not self.Options.Announce then return end
 		for i, v in pairs(self.icons) do
@@ -4129,13 +4129,13 @@ function DBM.CutText(tstring, len)
 	local last = 0;
 	local i = 0
 	while true do
-		i = string.find(tstring, " ", i + 1) 
-		if (i == nil) then 
+		i = string.find(tstring, " ", i + 1)
+		if (i == nil) then
 			break;
 
 		elseif( i < len) then
 			last = i - 1;
-			
+
 		elseif( i > len) then
 			break;
 		end
@@ -4161,7 +4161,7 @@ function DBM.SecondsToTime(seconds, longFormat, forceMinutes)
 		else
 			seconds = tonumber(seconds);
 		end
-		
+
 		min = math.floor(seconds / 60);
 		sec = string.format("%.0f", math.mod(seconds, 60));
 		if sec == "60" then
@@ -4187,7 +4187,7 @@ function DBM.SecondsToTime(seconds, longFormat, forceMinutes)
 			return "0.00";
 		else
 			seconds = tonumber(seconds);
-		end		
+		end
 		if (seconds > 60) or forceMinutes then
 			min = math.floor(seconds / 60);
 			sec = string.format("%02.0f", math.mod(seconds, 60));
@@ -4211,7 +4211,7 @@ end
 
 function DBM.SetHooks()
 	DBM.Hooks.oldChatFrame_MessageEventHandler = ChatFrame_MessageEventHandler;
-	
+
 	function DBM.Hooks.newChatFrame_MessageEventHandler(event)
 		if event and arg1 then
 			if (event == "CHAT_MSG_WHISPER" or event == "CHAT_MSG_WHISPER_INFORM") then
@@ -4249,7 +4249,7 @@ function DBM.SetHooks()
 					end
 				else
 					DBM.Hooks.oldChatFrame_MessageEventHandler(event);
-				end		
+				end
 			elseif (event == "CHAT_MSG_AFK") or (event == "CHAT_MSG_DND") then
 				if DBM.HideDNDAFKMessages[arg2] then
 					return;
@@ -4262,7 +4262,7 @@ function DBM.SetHooks()
 				else
 					if event == "CHAT_MSG_RAID_WARNING" then
 						local colorCode = ""
-						if arg1:find("^%*%*%*%s%s.+%s%s%*%*%*$") then -- color 2		
+						if arg1:find("^%*%*%*%s%s.+%s%s%*%*%*$") then -- color 2
 							colorCode = "|cff"..("%.2x"):format(255 * DBM.Options.RaidWarningColors[2]["r"])..("%.2x"):format(255 * DBM.Options.RaidWarningColors[2]["g"])..("%.2x"):format(255 * DBM.Options.RaidWarningColors[2]["b"])
 						elseif arg1:find("^%*%*%*%s.+%s%*%*%*$") then -- color 1
 							colorCode = "|cff"..("%.2x"):format(255 * DBM.Options.RaidWarningColors[1]["r"])..("%.2x"):format(255 * DBM.Options.RaidWarningColors[1]["g"])..("%.2x"):format(255 * DBM.Options.RaidWarningColors[1]["b"])
@@ -4273,7 +4273,7 @@ function DBM.SetHooks()
 						elseif arg1:find("^%s%s%*%*%*%s.+%s%*%*%*%s%s$") then -- color 4
 							colorCode = "|cff"..("%.2x"):format(255 * DBM.Options.RaidWarningColors[4]["r"])..("%.2x"):format(255 * DBM.Options.RaidWarningColors[4]["g"])..("%.2x"):format(255 * DBM.Options.RaidWarningColors[4]["b"])
 						end
-						
+
 						arg1 = arg1:gsub(">[^%s]+<", function(capture)
 							capture = capture:sub(2, -2)
 							if DBM.RaidClasses[capture] then
@@ -4281,8 +4281,8 @@ function DBM.SetHooks()
 							end
 							return capture
 						end)
-						
-						if arg1:find("^%*%*%*%s%s.+%s%s%*%*%*$") then -- color 2		
+
+						if arg1:find("^%*%*%*%s%s.+%s%s%*%*%*$") then -- color 2
 							arg1 = colorCode..arg1:sub(6, -6).."|r"
 						elseif arg1:find("^%*%*%*%s.+%s%*%*%*$") then -- color 1
 							arg1 = colorCode..arg1:sub(5, -5).."|r"
@@ -4293,7 +4293,7 @@ function DBM.SetHooks()
 						elseif arg1:find("^%s%s%*%*%*%s.+%s%*%*%*%s%s$") then -- color 4
 							arg1 = colorCode..arg1:sub(7, -7).."|r"
 						end
-					end					
+					end
 					DBM.Hooks.oldChatFrame_MessageEventHandler(event);
 				end
 			else
@@ -4305,7 +4305,7 @@ function DBM.SetHooks()
 	end
 
 	ChatFrame_MessageEventHandler = DBM.Hooks.newChatFrame_MessageEventHandler;
-	
+
 	if CT_RAMessageFrame and CT_RAMessageFrame.AddMessage then
 		DBM.Hooks.oldCT_RAMessageFrame_AddMessage = CT_RAMessageFrame.AddMessage;
 		function DBM.Hooks.newCT_RAMessageFrame_AddMessage(frame, text, r, g, b, id)
@@ -4316,9 +4316,9 @@ function DBM.SetHooks()
 			end
 		end
 		CT_RAMessageFrame.AddMessage = DBM.Hooks.newCT_RAMessageFrame_AddMessage;
-	end	
+	end
 
-	
+
 
 	if type(FC_IsValidWhisper) == "function" then
 		DBM.Hooks.oldFC_IsValidWhisper = FC_IsValidWhisper;
@@ -4326,7 +4326,7 @@ function DBM.SetHooks()
 			if DBM.HiddenWhisperMessages[string.gsub(Text, "%%", "")] and DBM.HiddenWhisperMessages[string.gsub(Text, "%%", "")]["targets"] and DBM.HiddenWhisperMessages[string.gsub(Text, "%%", "")]["targets"][Name] then
 				return 0;
 			end
-			return DBM.Hooks.oldFC_IsValidWhisper(Text, Name);	
+			return DBM.Hooks.oldFC_IsValidWhisper(Text, Name);
 		end
 		FC_IsValidWhisper = DBM.Hooks.newFC_IsValidWhisper;
 	end
@@ -4366,7 +4366,7 @@ function DBM.SetHooks()
 				return oldWIM_FilterResult(theMSG, theUser, isInbound, ...)
 			end
 		end
-	end	
+	end
 end
 
 function DBM.PlaySound(snd)
@@ -4398,24 +4398,24 @@ function DBMGuiUpdateStatusbars()
 	if( getglobal("DBM_StatusBarTimer1") == nil ) then return false; end		-- return if there are no bars
 	for i = 1, DBM.StatusBarCount do
 		if not getglobal("DBM_StatusBarTimer"..i).specialColor then
-			getglobal("DBM_StatusBarTimer"..i.."Bar"):SetStatusBarColor(	DBM.Options.StatusBarColor.r, 
-										DBM.Options.StatusBarColor.g, 
-										DBM.Options.StatusBarColor.b, 
+			getglobal("DBM_StatusBarTimer"..i.."Bar"):SetStatusBarColor(	DBM.Options.StatusBarColor.r,
+										DBM.Options.StatusBarColor.g,
+										DBM.Options.StatusBarColor.b,
 										DBM.Options.StatusBarColor.a	);
 		end
 	end
-	DBM_StatusBarTimerDragBar:SetStatusBarColor(DBM.Options.StatusBarColor.r, 
-							DBM.Options.StatusBarColor.g, 
-							DBM.Options.StatusBarColor.b, 
-							DBM.Options.StatusBarColor.a);	
-	DBM_StatusBarTimerDrag2Bar:SetStatusBarColor(DBM.Options.StatusBarColor.r, 
-							DBM.Options.StatusBarColor.g, 
-							DBM.Options.StatusBarColor.b, 
+	DBM_StatusBarTimerDragBar:SetStatusBarColor(DBM.Options.StatusBarColor.r,
+							DBM.Options.StatusBarColor.g,
+							DBM.Options.StatusBarColor.b,
+							DBM.Options.StatusBarColor.a);
+	DBM_StatusBarTimerDrag2Bar:SetStatusBarColor(DBM.Options.StatusBarColor.r,
+							DBM.Options.StatusBarColor.g,
+							DBM.Options.StatusBarColor.b,
 							DBM.Options.StatusBarColor.a);
 end
 
 function DBMMinimapButton_Move()
-	DBMMinimapButton:SetPoint("CENTER", "Minimap", "CENTER", (DBM.Options.MinimapButton.Radius * cos(DBM.Options.MinimapButton.Position)), 
+	DBMMinimapButton:SetPoint("CENTER", "Minimap", "CENTER", (DBM.Options.MinimapButton.Radius * cos(DBM.Options.MinimapButton.Position)),
 							(DBM.Options.MinimapButton.Radius * sin(DBM.Options.MinimapButton.Position)));
 end
 
@@ -4425,7 +4425,7 @@ function RaidWarningFrame_OnEvent(self, event, message)
 		if DBM.CheckForSpam("CHAT_MSG_RAID_WARNING_FRAME", message) then
 			return
 		end
-		
+
 		message = message:gsub(">[^%s]+<", function(capture)
 			capture = capture:sub(2, -2)
 			if DBM.RaidClasses[capture] then
@@ -4433,7 +4433,7 @@ function RaidWarningFrame_OnEvent(self, event, message)
 			end
 			return capture
 		end)
--- bugged! it doesn't support two different colors!		
+-- bugged! it doesn't support two different colors!
 --[[	if message:find("^%*%*%*%s%s.+%s%s%*%*%*$") then -- color 2
 			RaidNotice_AddMessage(self, message:sub(6, -6), DBM.Options.RaidWarningColors[2])
 		elseif message:find("^%*%*%*%s.+%s%*%*%*$") then -- color 1
@@ -4447,7 +4447,7 @@ function RaidWarningFrame_OnEvent(self, event, message)
 		else
 			RaidNotice_AddMessage(self, message, ChatTypeInfo["RAID_WARNING"])
 		end]]--
-		
+
 		if message:find("^%*%*%*%s%s.+%s%s%*%*%*$") then -- color 2
 			message = "|cff"..
 			("%.2x"):format(255 * DBM.Options.RaidWarningColors[2].r)..
@@ -4486,7 +4486,7 @@ function RaidWarningFrame_OnEvent(self, event, message)
 			message.."|r"
 		end
 		RaidNotice_AddMessage(self, message, ChatTypeInfo["RAID_WARNING"])
-		
+
 		DBM.PlaySound("RaidWarning")
 	end
 end
@@ -4499,7 +4499,7 @@ function RaidWarningFrames_AddLocalMessages(message, notRW)
 		return capture
 	end)
 
-	if message:find("^%*%*%*%s%s.+%s%s%*%*%*$") then -- color 2		
+	if message:find("^%*%*%*%s%s.+%s%s%*%*%*$") then -- color 2
 		DBMWarningFrame:AddMessage(message:sub(6, -6), DBM.Options.RaidWarningColors[2]["r"],  DBM.Options.RaidWarningColors[2]["g"],  DBM.Options.RaidWarningColors[2]["b"], DBM.Options.Gui["RaidWarning_Delay"])
 	elseif message:find("^%*%*%*%s.+%s%*%*%*$") then -- color 1
 		DBMWarningFrame:AddMessage(message:sub(5, -5), DBM.Options.RaidWarningColors[1]["r"],  DBM.Options.RaidWarningColors[1]["g"],  DBM.Options.RaidWarningColors[1]["b"], DBM.Options.Gui["RaidWarning_Delay"])
@@ -4511,12 +4511,12 @@ function RaidWarningFrames_AddLocalMessages(message, notRW)
 		DBMWarningFrame:AddMessage(message:sub(7, -7), DBM.Options.RaidWarningColors[4]["r"],  DBM.Options.RaidWarningColors[4]["g"],  DBM.Options.RaidWarningColors[4]["b"], DBM.Options.Gui["RaidWarning_Delay"])
 	else
 		DBMWarningFrame:AddMessage(message,
-				DBM.Options.Gui["SelfWarning_R"], 
+				DBM.Options.Gui["SelfWarning_R"],
 				DBM.Options.Gui["SelfWarning_G"],
 				DBM.Options.Gui["SelfWarning_B"],
 				DBM.Options.Gui["SelfWarning_Delay"])
 	end
-		
+
 	if not notRW then
 		if message:find("^%*%*%*%s%s.+%s%s%*%*%*$") then -- color 2
 			message = "|cff"..
@@ -4557,7 +4557,7 @@ function RaidWarningFrames_AddLocalMessages(message, notRW)
 		end
 		RaidNotice_AddMessage(RaidWarningFrame, message, ChatTypeInfo["RAID_WARNING"])
 	end
-	
+
 	DBM.PlaySound("RaidWarning")
 
 end
@@ -4586,7 +4586,7 @@ function DBM.RemoveGuiTab(tab)
 				table.remove(DBM.GuiTabsToLoad, i);
 				break;
 			end
-		end		
+		end
 	end
 end
 
@@ -4614,7 +4614,7 @@ function DBM_Gui_TabExists(tab)
 			return true;
 		end
 	end
-	
+
 	return false;
 end
 
@@ -4622,7 +4622,7 @@ end
 
 function DBM.CheckForSpam(event, msg, author)
 	if not DBM.Options.SpamBlock or not event or not msg then return false; end
-	
+
 	local spamExpression = "^%s*([%*]+) (.+) ([%*]+)%s*$";
 	local BGspamExpression = "^%w+: %w+[%s%w]*%s+%-%s+%d+:%d%d$"
 	if (event == "CHAT_MSG_RAID" or event == "CHAT_MSG_RAID_LEADER") and DBM.Options.SpamBlock.RaidChat and string.find(msg, spamExpression) then
@@ -4695,7 +4695,7 @@ function DBM.RequestBars(verbose)
 			end
 		end
 	end
-	
+
 	if not foundClients == 0 and verbose then
 		DBM.AddMsg(DBM_REQUEST_BARS_FAILED);
 	end
@@ -4705,7 +4705,7 @@ function DBM.SendBarsToPlayer(target)
 	if type(target) ~= "string" then
 		return;
 	end
-	
+
 	for index, value in pairs(DBM.StatusBarData) do
 		if value then
 			if value.syncedBar then
@@ -4737,10 +4737,10 @@ do
 			args[i] = nil
 		end
 	end
-	
+
 	function DBM.OnCombatLogEvent(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
 		if not event then return end
-		
+
 		local eventNeeded = false
 		for i, v in pairs(DBM.AddOns) do
 			if v.Options.Enabled and v.Events[event] and ((v.Instance == DBM_OTHER) or (v.Instance == GetRealZoneText()) or (GetLocale() == "esES" or GetLocale() == "koKR")) then
@@ -4751,7 +4751,7 @@ do
 		if not eventNeeded then
 			return
 		end
-		
+
 		clearArgs()
 
 		args.timestamp = timestamp
@@ -4763,28 +4763,28 @@ do
 		args.destName = destName
 		args.destFlags = destFlags
 		-- taken from Blizzard_CombatLog.lua
-		if event == "SWING_DAMAGE" then 
+		if event == "SWING_DAMAGE" then
 			args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(1, ...)
-		elseif event == "SWING_MISSED" then 
+		elseif event == "SWING_MISSED" then
 			args.spellName = ACTION_SWING
 			args.missType = select(1, ...)
 		elseif event:sub(1, 5) == "RANGE" then
 			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			if event == "RANGE_DAMAGE" then 
+			if event == "RANGE_DAMAGE" then
 				args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-			elseif event == "RANGE_MISSED" then 
+			elseif event == "RANGE_MISSED" then
 				args.missType = select(4, ...)
 			end
 		elseif event:sub(1, 5) == "SPELL" then
 			args.spellId, args.spellName, args.spellSchool = select(1, ...)
 			if event == "SPELL_DAMAGE" then
 				args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-			elseif event == "SPELL_MISSED" then 
+			elseif event == "SPELL_MISSED" then
 				args.missType = select(4, ...)
-			elseif event == "SPELL_HEAL" then 
+			elseif event == "SPELL_HEAL" then
 				args.amount, args.critical = select(4, ...)
 				args.school = args.spellSchool
-			elseif event == "SPELL_ENERGIZE" then 
+			elseif event == "SPELL_ENERGIZE" then
 				args.valueType = 2
 				args.amount, args.powerType = select(4, ...)
 			elseif event:sub(1, 14) == "SPELL_PERIODIC" then
@@ -4801,9 +4801,9 @@ do
 				elseif event == "SPELL_PERIODIC_LEECH" then
 					args.amount, args.powerType, args.extraAmount = select(4, ...)
 					args.valueType = 2
-				elseif event == "SPELL_PERIODIC_ENERGIZE" then 
+				elseif event == "SPELL_PERIODIC_ENERGIZE" then
 					args.amount, args.powerType = select(4, ...)
-					args.valueType = 2			
+					args.valueType = 2
 				end
 			elseif event == "SPELL_DRAIN" then
 				args.amount, args.powerType, args.extraAmount = select(4, ...)
@@ -4838,13 +4838,13 @@ do
 				args.sourceFlags = args.destFlags
 			elseif event == "SPELL_CAST_START" then
 			elseif event == "SPELL_CAST_SUCCESS" then
-			elseif event == "SPELL_CAST_FAILED" then 
+			elseif event == "SPELL_CAST_FAILED" then
 				args.missType = select(4, ...)
 			end
 		elseif event == "DAMAGE_SHIELD" then
 			args.spellId, args.spellName, args.spellSchool = select(1, ...)
 			args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-		elseif event == "DAMAGE_SHIELD_MISSED" then 
+		elseif event == "DAMAGE_SHIELD_MISSED" then
 			args.spellId, args.spellName, args.spellSchool = select(1, ...)
 			args.missType = select(4, ...)
 		elseif event == "PARTY_KILL" then

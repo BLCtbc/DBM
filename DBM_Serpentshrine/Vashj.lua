@@ -2,13 +2,15 @@ local Vashj = DBM:NewBossMod("Vashj", DBM_VASHJ_NAME, DBM_VASHJ_DESCRIPTION, DBM
 
 Vashj.Version			= "1.1";
 Vashj.Author			= "Tandanu";
-Vashj.MinRevision		= 762;
+Vashj.MinRevision		= 763;
+
+Vashj.MinVersionToSync  = 3.23;
 
 local shieldsDown = 0;
 local phase = 1;
 
 local usedIcons = {
-	[1]	= false,
+	[1] = false,
 	[2] = false,
 	[3] = false,
 	[4] = false,
@@ -49,7 +51,7 @@ Vashj:AddBarOption("Naga")
 
 function Vashj:OnCombatStart()
 	usedIcons = {
-		[1]	= false,
+		[1] = false,
 		[2] = false,
 		[3] = false,
 		[4] = false,
@@ -65,7 +67,7 @@ function Vashj:OnCombatStart()
 	end
 
 	if self.Options.WarnRoots then
-		self:StartStatusBarTimer(20, "First Entangle", "Interface\\Icons\\Spell_Nature_Stranglevines");
+		self:StartStatusBarTimer(15, "First Entangle", "Interface\\Icons\\Spell_Nature_Stranglevines");
 	end
 end
 
@@ -113,17 +115,17 @@ function Vashj:OnEvent(event, arg1)
 			self:StartStatusBarTimer(47.5, "Naga", "Interface\\Icons\\INV_Misc_MonsterHead_02");
 
 			self:ScheduleSelf(47.5, "Spawn", "Naga");
-			self:ScheduleSelf(50, "Spawn", "Elemental");
+			self:ScheduleSelf(50, "Spawn", "Tainted Elemental");
 			self:ScheduleSelf(62, "Spawn", "Strider");
 			self:ScheduleSelf(42.5, "SpawnSoonWarn", "Naga");
-			self:ScheduleSelf(48, "SpawnSoonWarn", "Elemental");
+			self:ScheduleSelf(45, "SpawnSoonWarn", "Tainted Elemental");
 			self:ScheduleSelf(57, "SpawnSoonWarn", "Strider");
 		elseif string.find(arg1, DBM_VASHJ_YELL_PHASE3) then
 			self:SendSync("Phase3");
 		end
 
 	elseif event == "SpawnSoonWarn" and arg1 and self.Options.WarnSpawns then
-		if arg1 == "Elemental" then
+		if arg1 == "Tainted Elemental" then
 			self:Announce(DBM_VASHJ_WARN_ELE_SOON, 1);
 		elseif arg1 == "Strider" then
 			self:Announce(DBM_VASHJ_WARN_STRIDER_SOON, 1);
@@ -146,13 +148,13 @@ function Vashj:OnEvent(event, arg1)
 			return;
 		end
 
-		if arg1 == "Elemental" then
+		if arg1 == "Tainted Elemental" then
 			if self.Options.WarnSpawns then
 				self:Announce(DBM_VASHJ_WARN_ELE_NOW, 3);
 			end
-			self:ScheduleSelf(53, "Spawn", "Tainted Elemental");
+			self:ScheduleSelf(50, "Spawn", "Tainted Elemental");
 			self:ScheduleSelf(45, "SpawnSoonWarn", "Tainted Elemental");
-			self:StartStatusBarTimer(53, "Tainted Elemental", "Interface\\Icons\\Spell_Nature_ElementalShields");
+			self:StartStatusBarTimer(50, "Tainted Elemental", "Interface\\Icons\\Spell_Nature_ElementalShields");
 		elseif arg1 == "Strider" then
 			if self.Options.WarnSpawns then
 				self:Announce(DBM_VASHJ_WARN_STRIDER_NOW, 2);
@@ -167,11 +169,6 @@ function Vashj:OnEvent(event, arg1)
 			self:ScheduleSelf(47.5, "Spawn", "Naga");
 			self:ScheduleSelf(42.5, "SpawnSoonWarn", "Naga");
 			self:StartStatusBarTimer(47.5, "Naga", "Interface\\Icons\\INV_Misc_MonsterHead_02");
-		end
-
-	elseif event == "UNIT_DIED" then
-		if arg1.destName == DBM_VASHJ_ELEMENT_DIES then
-			self:SendSync("ElementDies");
 		end
 
 	elseif event == "SPELL_AURA_REMOVED" then
@@ -225,13 +222,13 @@ function Vashj:OnSync(msg)
 		end
 	elseif msg == "Phase3" then
 		phase = 3;
-		self:UnScheduleSelf("Spawn", "Elemental");
+		self:UnScheduleSelf("Spawn", "Tainted Elemental");
 		self:UnScheduleSelf("Spawn", "Strider");
 		self:UnScheduleSelf("Spawn", "Naga");
-		self:UnScheduleSelf("SpawnSoonWarn", "Elemental");
+		self:UnScheduleSelf("SpawnSoonWarn", "Tainted Elemental");
 		self:UnScheduleSelf("SpawnSoonWarn", "Strider");
 		self:UnScheduleSelf("SpawnSoonWarn", "Naga");
-		self:EndStatusBarTimer("Elemental");
+		self:EndStatusBarTimer("Tainted Elemental");
 		self:EndStatusBarTimer("Strider");
 		self:EndStatusBarTimer("Naga");
 		self:Announce(DBM_VASHJ_WARN_PHASE3, 3);
@@ -239,7 +236,7 @@ function Vashj:OnSync(msg)
 			self:StartStatusBarTimer(8, "First Mind Control", "Interface\\Icons\\Spell_Shadow_Charm");
 		end
 		if self.Options.WarnRoots then
-			self:StartStatusBarTimer(15, "First Entangle", "Interface\\Icons\\Spell_Nature_Stranglevines");
+			self:StartStatusBarTimer(8, "First Entangle", "Interface\\Icons\\Spell_Nature_Stranglevines");
 		end
 
 	elseif string.sub(msg, 0, 4) == "Loot" then
@@ -258,7 +255,6 @@ function Vashj:OnSync(msg)
 		if self.Options.WarnMC then
 			self:Announce(string.format(DBM_VASHJ_WARN_MINDCONTROL, target), 1);
 			self:StartStatusBarTimer(20, "Mind Control: "..target, "Interface\\Icons\\Spell_Shadow_Charm");
-			self:StartStatusBarTimer(23, "Next Mind control", "Interface\\Icons\\Spell_Shadow_Charm");
 		end
 
 	elseif string.sub(msg, 0, 5) == "Roots" then
